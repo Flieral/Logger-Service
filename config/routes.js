@@ -4,8 +4,13 @@ exports.default =
 	{
 		return {
 			get:
-			[				/* 	STATUS 	*/
-				{path: '/:apiVersion/Service/Status'				, action: 'Status'}
+			[	
+				/* URIs */
+				{path: '/:apiVersion/monitor'						, action: 'monitorList'},
+				{path: '/:apiVersion/monitor/:monitorHashID'		, action: 'monitorModel'},
+
+				/* 	STATUS 	*/
+				{path: '/:apiVersion/Service/Status'					, action: 'Status'}
 			],
 			put:
 			[
@@ -13,11 +18,14 @@ exports.default =
 			],
 			post:
 			[
-
+				/* URIs */
+				{path: '/:apiVersion/monitor/:monitorHashID'		, action: 'monitorModelEntry'}
 			],
 			delete:
 			[
-
+				/* URIs */
+				{path: '/:apiVersion/monitor'						, action: 'monitorListDelete'},
+				{path: '/:apiVersion/monitor/:monitorHashID'		, action: 'monitorModelDelete'}
 			]
 		};
 	}
