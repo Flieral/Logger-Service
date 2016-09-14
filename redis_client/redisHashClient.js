@@ -1,4 +1,5 @@
 var configuration 	= require('../config/configuration.json')
+var utility			= require('../logic/utility')
 var requestHandler 	= require('./requestHandler')
 
 module.exports = 
@@ -17,7 +18,7 @@ module.exports =
 		}
 
 		var innerDict = { "FieldValues" : fieldValues }
-		var encodedFieldValue = utility.base64Encoding(innerDict.toString())
+		var encodedFieldValue = utility.base64Encoding(JSON.stringify(innerDict))
 		var dict = {
 			"UserToken" : userToken,
 			"Key"		: tableName,
@@ -46,7 +47,7 @@ module.exports =
 		var innerDict = {
 			"Keys"		: keyArray
 		}
-		var encodedKeys = utility.base64Encoding(innerDict.toString())
+		var encodedKeys = utility.base64Encoding(JSON.stringify(innerDict))
 		var dict = {
 			"UserToken" : userToken,
 			"Key"		: encodedKeys
@@ -74,7 +75,7 @@ module.exports =
 		var innerDict = {
 			"Keys"		: keyArray
 		}
-		var encodedKeys = utility.base64Encoding(innerDict.toString())
+		var encodedKeys = utility.base64Encoding(JSON.stringify(innerDict))
 		var dict = {
 			"UserToken" : userToken,
 			"Key"		: encodedKeys

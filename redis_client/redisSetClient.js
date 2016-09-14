@@ -1,4 +1,5 @@
 var configuration 	= require('../config/configuration.json')
+var utility			= require('../logic/utility')
 var requestHandler 	= require('./requestHandler')
 
 module.exports = 

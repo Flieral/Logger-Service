@@ -1,4 +1,5 @@
 var configuration 	= require('../config/configuration.json')
+var utility			= require('../logic/utility')
 var requestHandler 	= require('./requestHandler')
 
 module.exports = 
@@ -8,7 +9,7 @@ module.exports =
 	{
 		var values = [value]
 		var innerDict = { "Values" : values }
-		var encodedValues = utility.base64Encoding(innerDict.toString())
+		var encodedValues = utility.base64Encoding(JSON.stringify(innerDict))
 		var dict = {
 			"UserToken"	: userToken,
 			"Key"		: tableName,

@@ -1,4 +1,5 @@
 var configuration 	= require('../config/configuration.json')
+var utility			= require('../logic/utility')
 var requestHandler 	= require('./requestHandler')
 
 module.exports = 
@@ -8,7 +9,7 @@ module.exports =
 	{
 		var scoreMembers = [score, member]
 		var innerDict = { "ScoreMembers" : scoreMembers }
-		var encodedScoreMember = utility.base64Encoding(innerDict.toString())
+		var encodedScoreMember = utility.base64Encoding(JSON.stringify(innerDict))
 		var dict = {
 			"UserToken" 	: userToken,
 			"Key"			: tableName,
@@ -23,7 +24,7 @@ module.exports =
 	getIntersectModel: function(userToken, destinationTableName, tables)
 	{
 		var innerDict = { "Keys" : tables }
-		var encodedKeys = utility.base64Encoding(innerDict.toString())
+		var encodedKeys = utility.base64Encoding(JSON.stringify(innerDict))
 		var dict = {
 			"UserToken" 	: userToken,
 			"Key"			: encodedKeys,
