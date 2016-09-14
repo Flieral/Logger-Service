@@ -1,36 +1,13 @@
-var request 		= require('request')
-var configuration 	= require('../config/configuration.json');
 var utility			= require('../logic/utility')
+var redisClient		= require('../redis_client/redisClient')
+var configuration 	= require('../config/configuration.json');
 
-module.exports = function(userToken, monitorHashID, callback)
+module.exports = function(userToken, accountHashID, monitorHashID, callback)
 {
-	var dict = {
-		"UserToken" : userToken,
-		"Key"		: monitorHashID
-	}
-	var queryString = utility.generateQueryString(dict)
-	var url = configuration.BaseURL + 'Database/RHash/GetAll?' + queryString
-	request
-	(
-		{
-			method: 'GET',
-			uri: url
-		},
-		function (error, response, body)
-		{
-			// body is the decompressed response body
-			if (!error && response.statusCode === 200)
-				callback(null, JSON.parse(body))				
-			else
-				callback(new Error(JSON.parse(body).error), null)
-		}
-	)
-	.on
-	(
-		'error',
-		function(err)
-		{
-			callback(err, null);
-		}
-	)
+	var destTable = configuration.TableMAMonitorModel + monitorHashID
+	var res = redisClient.hashModel.getModel(userToken, destTable)
+	if (res !== null && typeof res === 'error')
+		callback(res, null)
+	else
+		callback(null, res)
 }
