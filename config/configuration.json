@@ -3,7 +3,7 @@
 	"Successful":	"Successful Operating",
 
 	"ConstantMMTime"			: "Time",
-	"ConstantMMStatusCode"		: "StatudCode",
+	"ConstantMMStatusCode"		: "StatusCode",
 	"ConstantMMServiceCaller"	: "ServiceCaller",
 	"ConstantMMModuleCaller"	: "ModuleCaller",
 	"ConstantMMAction"			: "Action",
