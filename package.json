@@ -10,6 +10,7 @@
     "actionhero": "15.0.2",
     "fakeredis": "latest",
     "ioredis": "latest",
+    "node-uuid": "^1.4.7",
     "request": "^2.74.0",
     "ws": "latest"
   },
