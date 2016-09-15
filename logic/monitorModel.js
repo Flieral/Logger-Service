@@ -4,10 +4,7 @@ var configuration 	= require('../config/configuration.json');
 
 module.exports = function(userToken, accountHashID, monitorHashID, callback)
 {
+	/* Get a Hash Model from MonitorModel:MonitorHashID */
 	var destTable = configuration.TableMAMonitorModel + monitorHashID
-	var res = redisClient.hashModel.getModel(userToken, destTable)
-	if (res !== null && typeof res === 'error')
-		callback(res, null)
-	else
-		callback(null, res)
+	redisClient.hashModel.getModel(userToken, destTable, function(error, result){ callback(error, result)})
 }

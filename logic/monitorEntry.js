@@ -11,69 +11,47 @@ module.exports = function(userToken, accountHashID, payload, callback)
 
 	/* Add to MonitorModel:MonitorHashID */
 	tableName 	= configuration.TableMAMonitorModel + monitorHashID
-	errorCheck 	= redisClient.hashModel.createModel(userToken, tableName, payload)
-	if (errorCheck !== null && typeof errorCheck === 'error')
-		callback(errorCheck, null)
+	redisClient.hashModel.createModel(userToken, tableName, payload, function(error, result){})
 
 	/* Add to AccountModel:MonitorModel:AccountHashID */
 	tableName 	= configuration.TableMSAccountModelMonitorModel + accountHashID
-	errorCheck 	= redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime)
-	if (errorCheck !== null && typeof errorCheck === 'error')
-		callback(errorCheck, null)
+	redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime, function(error, result){})
 
 	/* Add to MonitorModel:StatusCodeType1:AccountHashID */
 	tableName 	= configuration.TableMonitorModel.StatusCode[payload[configuration.ConstantMMStatusCode]] + accountHashID
-	errorCheck 	= redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime)
-	if (errorCheck !== null && typeof errorCheck === 'error')
-		callback(errorCheck, null)
+	redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime, function(error, result){})
 
 	/* Add to MonitorModel:ActionType1:AccountHashID */
-	tableName 	= configuration.TableMonitorModel.ActionType[payload[configuration.ConstantMMAction]] + accountHashID
-	errorCheck 	= redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime)
-	if (errorCheck !== null && typeof errorCheck === 'error')
-		callback(errorCheck, null)
+	tableName 	= configuration.TableMonitorModel.Action[payload[configuration.ConstantMMAction]] + accountHashID
+	redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime, function(error, result){})
 
 	/* Add to MonitorModel:ServiceCallerType1:AccountHashID */
-	tableName 	= configuration.TableMonitorModel.ServiceCallerType[payload[configuration.ConstantMMServiceCaller]] + accountHashID
-	errorCheck 	= redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime)
-	if (errorCheck !== null && typeof errorCheck === 'error')
-		callback(errorCheck, null)
+	tableName 	= configuration.TableMonitorModel.ServiceCaller[payload[configuration.ConstantMMServiceCaller]] + accountHashID
+	redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime, function(error, result){})
 
 	/* Add to MonitorModel:ModuleCallerType1:AccountHashID */
-	tableName 	= configuration.TableMonitorModel.ModuleCallerType[payload[configuration.ConstantMMModuleCaller]] + accountHashID
-	errorCheck 	= redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime)
-	if (errorCheck !== null && typeof errorCheck === 'error')
-		callback(errorCheck, null)
+	tableName 	= configuration.TableMonitorModel.ModuleCaller[payload[configuration.ConstantMMModuleCaller]] + accountHashID
+	redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime, function(error, result){})
 
 	/* Add to MonitorModel: */
 	tableName 	= configuration.TableMLMonitorModel
-	errorCheck 	= redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime)
-	if (errorCheck !== null && typeof errorCheck === 'error')
-		callback(errorCheck, null)
+	redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime, function(error, result){})
 
 	/* Add to MonitorModel:StatusCodeType1: */
 	tableName 	= configuration.TableMonitorModel.StatusCode[payload[configuration.ConstantMMStatusCode]]
-	errorCheck 	= redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime)
-	if (errorCheck !== null && typeof errorCheck === 'error')
-		callback(errorCheck, null)
+	redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime, function(error, result){})
 
 	/* Add to MonitorModel:ActionType1: */
-	tableName 	= configuration.TableMonitorModel.ActionType[payload[configuration.ConstantMMAction]]
-	errorCheck 	= redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime)
-	if (errorCheck !== null && typeof errorCheck === 'error')
-		callback(errorCheck, null)
+	tableName 	= configuration.TableMonitorModel.Action[payload[configuration.ConstantMMAction]]
+	redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime, function(error, result){})
 
 	/* Add to MonitorModel:ServiceCallerType1: */
-	tableName 	= configuration.TableMonitorModel.ServiceCallerType[payload[configuration.ConstantMMServiceCaller]]
-	errorCheck 	= redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime)
-	if (errorCheck !== null && typeof errorCheck === 'error')
-		callback(errorCheck, null)
+	tableName 	= configuration.TableMonitorModel.ServiceCaller[payload[configuration.ConstantMMServiceCaller]]
+	redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime, function(error, result){})
 
 	/* Add to MonitorModel:ModuleCallerType1: */
-	tableName 	= configuration.TableMonitorModel.ModuleCallerType[payload[configuration.ConstantMMModuleCaller]]
-	errorCheck 	= redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime)
-	if (errorCheck !== null && typeof errorCheck === 'error')
-		callback(errorCheck, null)
+	tableName 	= configuration.TableMonitorModel.ModuleCaller[payload[configuration.ConstantMMModuleCaller]]
+	redisClient.zSetModel.createKeyModel(userToken, tableName, monitorHashID, valueTime, function(error, result){})
 
 	var result = {}
 	result.result =	monitorHashID
