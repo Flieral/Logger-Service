@@ -1,6 +1,6 @@
 var request	= require('request')
 
-module.exports = function(url)
+module.exports = function(url, callback)
 {
 	console.log('url: ' + url)
 	request
@@ -13,9 +13,9 @@ module.exports = function(url)
 		{
 			// body is the decompressed response body
 			if (!error && response.statusCode === 200)
-				return JSON.parse(body)
+				callback(null, JSON.parse(body))
 			else
-				return new Error(JSON.parse(body).error)
+				callback(new Error(JSON.parse(body).error), null)
 		}
 	)
 	.on
@@ -23,7 +23,7 @@ module.exports = function(url)
 		'error',
 		function(err)
 		{
-			return err
+			callback(err, null)
 		}
 	)
 }

@@ -5,7 +5,7 @@ var requestHandler 	= require('./requestHandler')
 module.exports = 
 {
 	/* Add Member Score to ZSet Table */
-	createKeyModel: function(userToken, tableName, member, score)
+	createKeyModel: function(userToken, tableName, member, score, callback)
 	{
 		var scoreMembers = [score, member]
 		var innerDict = { "ScoreMembers" : scoreMembers }
@@ -17,28 +17,42 @@ module.exports =
 		}
 		var queryString = utility.generateQueryString(dict)
 		var url = configuration.BaseURL + 'Database/RZSet/Add?' + queryString
-		return requestHandler(url)
+		requestHandler(url, function (error, result) { callback(error, result)})
 	},
 
 	/* Get Intersection of ZSet Tables in ZSet DestinationTable */
-	getIntersectModel: function(userToken, destinationTableName, tables)
+	getIntersectModel: function(userToken, destinationTableName, tables, callback)
 	{
 		var innerDict = { "Keys" : tables }
 		var encodedKeys = utility.base64Encoding(JSON.stringify(innerDict))
 		var dict = {
 			"UserToken" 	: userToken,
 			"Key"			: encodedKeys,
-			"NumKeys"		: tables.Length,
 			"Destination"	: destinationTableName,
-			"Aggregate"		: "MAX"
+			"Aggregate"		: "MAX",
+			"Numkeys"		: tables.length
 		}
 		var queryString = utility.generateQueryString(dict)
 		var url = configuration.BaseURL + 'Database/RZSet/InterStore?' + queryString
-		return requestHandler(url)
+		requestHandler(url, function (error, result) { callback(error, result)})
+	},
+
+	/* Get ZSet Table Content from Start to Stop */
+	getModel: function(userToken, tableName, start, stop, callback)
+	{
+		var dict = {
+			"UserToken" : userToken,
+			"Key"		: tableName,
+			"Start"		: start,
+			"Stop"		: stop
+		}
+		var queryString = utility.generateQueryString(dict)
+		var url = configuration.BaseURL + 'Database/RZSet/Range?' + queryString
+		requestHandler(url, function (error, result) { callback(error, result)})
 	},
 
 	/* Get ZSet Table Content from Start to Stop in Reverse Mode */
-	getReverseModel: function(userToken, tableName, start, stop)
+	getReverseModel: function(userToken, tableName, start, stop, callback)
 	{
 		var dict = {
 			"UserToken" : userToken,
@@ -48,11 +62,11 @@ module.exports =
 		}
 		var queryString = utility.generateQueryString(dict)
 		var url = configuration.BaseURL + 'Database/RZSet/RevRange?' + queryString
-		return requestHandler(url)
+		requestHandler(url, function (error, result) { callback(error, result)})
 	},
 
 	/* Get ZSet Table Content by Score from Min to Max */
-	getReverseWithScoreModel: function(userToken, tableName, minScore, maxScore)
+	getWithScoreModel: function(userToken, tableName, minScore, maxScore, callback)
 	{
 		var dict = {
 			"UserToken" : userToken,
@@ -61,34 +75,44 @@ module.exports =
 			"Max"		: maxScore
 		}
 		var queryString = utility.generateQueryString(dict)
-		var url = configuration.BaseURL + 'Database/RZSet/RevRangeByScore?' + queryString
-		return requestHandler(url)
+		var url = configuration.BaseURL + 'Database/RZSet/RangeByScore?' + queryString
+		requestHandler(url, function (error, result) { callback(error, result)})
 	},
 
 	/* Delete a Key by Rank from ZSet Table */
-	deleteKeyModel: function(userToken, tableName, member)
+	deleteKeyModel: function(userToken, tableName, member, callback)
 	{
-		var dic1 = {
+		var dict1 = {
+			"UserToken"	: userToken,
 			"Key"		: tableName,
 			"Member"	: member
 		}
 		var queryString1 = utility.generateQueryString(dict1)
-		var url = configuration.BaseURL + 'Database/RZSet/Rank?' + queryString1
-		var index = requestHandler(url).result
-
-		var dict = {
-			"UserToken" : userToken,
-			"Key"		: tableName,
-			"Start"		: index,
-			"Stop"		: index
-		}
-		var queryString = utility.generateQueryString(dict)
-		var url = configuration.BaseURL + 'Database/RZSet/RemRangeByRank?' + queryString
-		return requestHandler(url)
+		var url1 = configuration.BaseURL + 'Database/RZSet/Rank?' + queryString1
+		requestHandler(url1, function (error, result)
+		{ 
+			if (error)
+				callback(error, null)
+			else
+			{
+				if (result.result !== null)
+				{
+					var dict = {
+						"UserToken" : userToken,
+						"Key"		: tableName,
+						"Start"		: result.result.toString(),
+						"Stop"		: result.result.toString()
+					}
+					var queryString = utility.generateQueryString(dict)
+					var url = configuration.BaseURL + 'Database/RZSet/RemRangeByRank?' + queryString
+					requestHandler(url, function (error, result) { callback(error, result)})
+				}	
+			}
+		})
 	},
 
 	/* Delete a ZSet Table */
-	deleteModel: function(userToken, tableName)
+	deleteModel: function(userToken, tableName, callback)
 	{
 		var dict = {
 			"UserToken" : userToken,
@@ -98,6 +122,6 @@ module.exports =
 		}
 		var queryString = utility.generateQueryString(dict)
 		var url = configuration.BaseURL + 'Database/RZSet/RemRangeByRank?' + queryString
-		return requestHandler(url)
+		requestHandler(url, function (error, result) { callback(error, result)})
 	}
 }

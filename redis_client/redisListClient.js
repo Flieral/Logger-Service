@@ -5,7 +5,7 @@ var requestHandler 	= require('./requestHandler')
 module.exports = 
 {
 	/* Add Value to Set Table */
-	createKeyModel: function(userToken, tableName, value)
+	createKeyModel: function(userToken, tableName, value, callback)
 	{
 		var values = [value]
 		var innerDict = { "Values" : values }
@@ -17,6 +17,6 @@ module.exports =
 		}
 		var queryString = utility.generateQueryString(dict)
 		var url = configuration.BaseURL + 'Database/RList/PUSH?' + queryString
-		return requestHandler(url)
+		requestHandler(url, function (error, result) { callback(error, result)})
 	}
 }

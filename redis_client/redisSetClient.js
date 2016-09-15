@@ -5,7 +5,7 @@ var requestHandler 	= require('./requestHandler')
 module.exports = 
 {
 	/* Add Member to Set Table */
-	createKeyModel: function(userToken, tableName, member)
+	createKeyModel: function(userToken, tableName, member, callback)
 	{
 		var dict = {
 			"UserToken"	: userToken,
@@ -14,6 +14,6 @@ module.exports =
 		}
 		var queryString = utility.generateQueryString(dict)
 		var url = configuration.BaseURL + 'Database/RSet/Add?' + queryString
-		return requestHandler(url)
+		requestHandler(url, function (error, result) { callback(error, result)})
 	}
 }
