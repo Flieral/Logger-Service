@@ -2,6 +2,17 @@ var utility			= require('../logic/utility')
 var redisClient		= require('../redis_client/redisClient')
 var configuration 	= require('../config/configuration.json');
 
+/*
+	payload = {
+		Time: timeX					-> Required, Unix Timestamp in Milliseconds
+		StatusCode: SampleX			-> Required, Based on config/configuration JSON file
+		ServiceCaller: SampleX		-> Required, Based on config/configuration JSON file
+		ModuleCaller: SampleX		-> Required, Based on config/configuration JSON file
+		Action: SampleX				-> Required, Based on config/configuration JSON file
+		LogMessage: logMessageX		-> Required, Any Arbitary UTF8 String
+		ObjectInfo: objectInfoX		-> Optional, But if user didn't set, REST should set it to string "null"
+	}
+*/
 module.exports = function(userToken, accountHashID, payload, callback)
 {
 	var tableName
