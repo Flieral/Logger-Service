@@ -6,11 +6,11 @@ exports.default =
 			get:
 			[	
 				/* URIs */
-				{path: '/:apiVersion/monitor'						, action: 'monitorList'},
-				{path: '/:apiVersion/monitor/:monitorHashID'		, action: 'monitorModel'},
+				{path: '/monitor'						, action: 'monitorList'},
+				{path: '/monitor/:monitorHashID'		, action: 'monitorModel'},
 
 				/* 	STATUS 	*/
-				{path: '/:apiVersion/Service/Status'					, action: 'Status'}
+				{path: '/Service/Status'					, action: 'Status'}
 			],
 			put:
 			[
@@ -19,13 +19,13 @@ exports.default =
 			post:
 			[
 				/* URIs */
-				{path: '/:apiVersion/monitor/:monitorHashID'		, action: 'monitorModelEntry'}
+				{path: '/monitor/:monitorHashID'		, action: 'monitorModelEntry'}
 			],
 			delete:
 			[
 				/* URIs */
-				{path: '/:apiVersion/monitor'						, action: 'monitorListDelete'},
-				{path: '/:apiVersion/monitor/:monitorHashID'		, action: 'monitorModelDelete'}
+				{path: '/monitor'						, action: 'monitorListDelete'},
+				{path: '/monitor/:monitorHashID'		, action: 'monitorModelDelete'}
 			]
 		};
 	}

@@ -51,5 +51,7 @@
 	"actionhero member %s has left the cluster": "actionhero member %s has left the cluster",
 	"*** ActionHero Restarted ***": "*** ActionHero Restarted ***",
 	"projectRoot: /home/hurricanc/Documents/Projects/Develop/Logger-Service": "projectRoot: /home/hurricanc/Documents/Projects/Develop/Logger-Service",
-	"actionheroRoot: /home/hurricanc/Documents/Projects/Develop/Logger-Service/node_modules/actionhero": "actionheroRoot: /home/hurricanc/Documents/Projects/Develop/Logger-Service/node_modules/actionhero"
+	"actionheroRoot: /home/hurricanc/Documents/Projects/Develop/Logger-Service/node_modules/actionhero": "actionheroRoot: /home/hurricanc/Documents/Projects/Develop/Logger-Service/node_modules/actionhero",
+	"projectRoot: /home/Drive-A/Logger-Service": "projectRoot: /home/Drive-A/Logger-Service",
+	"actionheroRoot: /home/Drive-A/Logger-Service/node_modules/actionhero": "actionheroRoot: /home/Drive-A/Logger-Service/node_modules/actionhero"
 }
