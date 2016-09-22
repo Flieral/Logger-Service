@@ -3,18 +3,19 @@ var Input =
 {	
 	UserToken:
 	{
-		required: true
+		required: false
 	}
 }
 
-exports.monitorModel =
+exports.monitorList =
 {
-	name: "monitorModel",
+	name: "monitorList",
 	description: "Get Monitor Model JSON",
 	inputs: Input,
 
 	run: function(api, data, next)
 	{
 		data.response.result = "This Is Mohamamd:)";
+		next();
 	}
 };
