@@ -1,43 +1,30 @@
-var monitorModel = require('../../logic/monitorModel');
-
-var Input =
-{	
-	UserToken:
-	{
+var monitorModel = require('../../logic/monitorModel')
+var Input = {	
+	UserToken: {
 		required: true
 	},
-
-	monitorHashID:
-	{
+	monitorHashID: {
 		required: true
 	}
 }
-
-exports.monitorModel =
-{
+exports.monitorModel = {
 	name: "monitorModel",
 	description: "Get Monitor Model JSON",
 	inputs: Input,
-
-	run: function(api, data, next)
-	{
-		monitorModel
-		(
+	run: function(api, data, next) {
+		monitorModel(
 			data.params.UserToken,
 			data.params.monitorHashID,
-			function (error, result)
-			{
-				if (error)
-				{
-					data.response.error = error.error;
-					next(error);
+			function (error, result) {
+				if (error) {
+					data.response.error = error.error
+					next(error)
 				}
-				else
-				{
-					data.response.result = result.result;
-					next();
+				else {
+					data.response.result = result.result
+					next()
 				}
 			}
-		);
+		)
 	}
-};
+}
