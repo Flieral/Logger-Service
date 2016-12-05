@@ -4,7 +4,7 @@ exports.default =
 	{
 		return {
 			get:
-			[	
+			[
 				/* URIs */
 				{path: '/:apiVersion/monitor'						, action: 'monitorList'},
 				{path: '/:apiVersion/monitor/:monitorHashID'		, action: 'monitorModel'},
@@ -19,7 +19,7 @@ exports.default =
 			post:
 			[
 				/* URIs */
-				{path: '/:apiVersion/monitor/:monitorHashID'		, action: 'monitorModelEntry'}
+				{path: '/:apiVersion/monitor'		, action: 'monitorModelEntry'}
 			],
 			delete:
 			[
