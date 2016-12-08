@@ -1,31 +1,51 @@
 {
-  "hashID":{
-    "required": true,
-    "type":"string",
-    "default": 0
-  },
+  "monitorModelEntry": {
+    "accountHashID": {
+      "required": true,
+      "type":"string",
+      "default": 0
+    },
 
-  "statusCode":{
-    "required": false,
-    "type": "string",
-    "default": 0
-  },
+    "statusCode":{
+      "required": true,
+      "type": "string",
+      "default": 0
+    },
 
-  "serviceCaller":{
-    "required": false,
-    "type": "string",
-    "default": 0
-  },
+    "serviceCaller":{
+      "required": true,
+      "type": "string",
+      "default": 0
+    },
+    
+    "moduleCaller":{
+      "required": true,
+      "type": "string",
+      "default": 0
+    },
 
-  "moduleCaller":{
-    "required": false,
-    "type": "string",
-    "default": 0
-  },
+    "action":{
+      "required": true,
+      "type": "string",
+      "default": 0
+    },
 
-  "action":{
-    "required": false,
-    "type": "string",
-    "default": 0
-  },
+    "time":{
+      "required": true,
+      "type": "string",
+      "default": 0
+    },
+
+    "logMessage":{
+      "required": true,
+      "type": "string",
+      "default": 0
+    },
+
+    "objectInfo":{
+      "required": false,
+      "type": "string",
+      "default": 0
+    }
+  }
 }
