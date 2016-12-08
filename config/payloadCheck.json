@@ -1,0 +1,31 @@
+{
+  "hashID":{
+    "required": true,
+    "type":"string",
+    "default": 0
+  },
+
+  "statusCode":{
+    "required": false,
+    "type": "string",
+    "default": 0
+  },
+
+  "serviceCaller":{
+    "required": false,
+    "type": "string",
+    "default": 0
+  },
+
+  "moduleCaller":{
+    "required": false,
+    "type": "string",
+    "default": 0
+  },
+
+  "action":{
+    "required": false,
+    "type": "string",
+    "default": 0
+  },
+}
