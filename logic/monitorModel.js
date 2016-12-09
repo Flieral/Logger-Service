@@ -1,4 +1,4 @@
-var redisClient = require('directory_to_redisClient').getClient()
+var redisClient = require('../public/redisClient.js').getClient()
 var configuration 	= require('../config/configuration.json')
 
 module.exports = function(monitorHashID, callback) {
