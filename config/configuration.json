@@ -1,3 +1,33 @@
 {
-	"BaseURL"	:	"http://0.0.0.0:8080/api/1/"
+	"BaseURL":	"http://0.0.0.0:8080/api/1/",
+
+	"TableMAMonitorModel": "MonitorModel:",
+	"TableTemporary": "Temporary:",
+	"TableMSAccountModelMonitorModel": "AccountModel:MonitorModel:",
+
+
+	"TableMonitorModel" :
+	{
+		"StatusCode":
+		{
+			"Sample1"	: 	"MonitorModel:StatusCodeSample1:",
+			"Sample2"	: 	"MonitorModel:StatusCodeSample2:"
+		},
+		"Action"	:
+		{
+			"Sample1"	: 	"MonitorModel:ActionSample1:",
+			"Sample2"	: 	"MonitorModel:ActionSample2:"
+		},
+		"ServiceCaller"	:
+		{
+			"Sample1"	: 	"MonitorModel:ServiceCallerSample1:",
+			"Sample2"	: 	"MonitorModel:ServiceCallerSample2:"
+		},
+		"ModuleCaller"	:
+		{
+			"Sample1"	: 	"MonitorModel:ModuleCallerSample1:",
+			"Sample2"	: 	"MonitorModel:ModuleCallerSample2:"
+		},
+}
+
 }
