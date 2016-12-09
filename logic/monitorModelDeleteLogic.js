@@ -5,12 +5,12 @@ module.exports = function (accountHashID, monitorHashID, callback) {
   multi = redisClient.multi()
   var monitorTable = configuration.TableMAMonitorModel + monitorHashID
   multi.hdel(monitorTable,
-    configuration.CosntantMMTime
-  configuration.CosntantMMStatusCode
-  configuration.CosntantMMServiceCaller
-  configuration.CosntantMMModuleCaller
-  configuration.CosntantMMAction
-  configuration.CosntantMMLogMessage
+    configuration.CosntantMMTime,
+  configuration.CosntantMMStatusCode,
+  configuration.CosntantMMServiceCaller,
+  configuration.CosntantMMModuleCaller,
+  configuration.CosntantMMAction,
+  configuration.CosntantMMLogMessage,
   configuration.CosntantMMObjectInfo
   )
   var monitorModelTablesKeys = Object.keys(configuration.TableMonitorModel)
