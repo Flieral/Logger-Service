@@ -1,17 +1,24 @@
-var monitorModelEntry = require('../../logic/payloadChecker')
+var payloadChecker = require('../../logic/payloadChecker')
+var monitorModelEntryAction = require('../../logic/monitorModelEntryAction')
+
 exports.monitorModelEntry = {
   name: "monitorModelEntry",
-  description: "Post Log"
-  run: function(api, data, next){
+  description: "Post Log",
+
+  run: function(api, data, next) {
     var payload = JSON.parse(JSON.stringify(data.connection.rawConnection.params.body))
-    startChecking(payload, function(error, result){
+    payloadChecker.startChecking(payload, function(error, result) {
       if (error) {
         data.response.error = error.error
         next(error)
       }
-      else{
-        monitorModelEntry(playload)
-      }
+      monitorModelEntryAction(playload, function(error, result) {
+        if (error) {
+          data.response.error = error.error
+          next(error)
+        }
+        data.response.result = result
+      })
     })
   }
 }

@@ -2,20 +2,18 @@ var payloadCheck = require('../config/payloadCheck.json')
 var config = require('../config/configuration.json')
 
 module.exports = {
-
   requiredCheck: function(body, callback){
     var peyKeys = Object.keys(payloadCheck.monitorModelEntry)
-    for (var i = 0; i < peyKeys.length; i++){
-      if (payloadCheck[peyKeys[i]].required && !body[peyKeys[i]]){
-        callback(New Error(peyKeys[i] + config.message.keyRequiredError))
+    for (var i = 0; i < peyKeys.length; i++) {
+      if (payloadCheck[peyKeys[i]].required && !body[peyKeys[i]]) {
+        callback(new Error(peyKeys[i] + config.message.keyRequiredError))
       }
     }
   },
 
   formatter: function(body, callback){
     var bodyKeys = Object.keys(body)
-    for (var i = 0; i < bodyKeys.length; i++)
-    {
+    for (var i = 0; i < bodyKeys.length; i++) {
       switch (payloadCheck.monitorModelEntry.[bodyKeys[i]].type)
       {
         case "int":
@@ -26,26 +24,30 @@ module.exports = {
         break
       }
     }
-    callback(null,body)
+    callback(null, body)
   },
 
-  validator: function(body, callback){
+  validator: function(body, callback) {
     var bodyKeys = Object.keys(body)
-    for (var i = 0; i < bodyKeys.length; i++){
+    for (var i = 0; i < bodyKeys.length; i++) {
       if (!payloadCheck.monitorModelEntry.[bodyKeys[i]])
-      callback(New Error(bodyKeys[i] + "Key does not exist"), null)
+        callback(new Error(bodyKeys[i] + "Key does not exist"), null)
     }
-  }
+  },
 
-  startChecking: function(body, finalCallback){
-    this.requiredCheck(body, func(error){
-      finalcallback(error, null)
+  startChecking: function(body, finalCallback) {
+    this.requiredCheck(body, function(error) {
+      if(error)
+        finalcallback(error, null)
     })
-    this.validator(body, func(error){
-      finalcallback(error, null)
+    this.validator(body, function(error) {
+      if(error)
+        finalcallback(error, null)
     })
-    this.formatter(body, func(error, result){
-      finalcallback(error, result)
+    this.formatter(body, function(error, result) {
+      if(error)
+        finalcallback(error, null)
+      finalCallback(null, result)
     })
   }
 }
