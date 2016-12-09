@@ -1,4 +1,6 @@
-module.exports = 
+var uuid = require('node-uuid')
+
+module.exports =
 {
 	generateQueryString: function(data)
 	{
@@ -14,3 +16,7 @@ module.exports =
 		return new Buffer(data).toString('base64');
 	}
 }
+
+generateUniqueHashID: function() {
+  return uuid.v1()
+ }
