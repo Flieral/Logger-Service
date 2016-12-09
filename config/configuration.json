@@ -4,8 +4,6 @@
 	"TableMAMonitorModel": "MonitorModel:",
 	"TableTemporary": "Temporary:",
 	"TableMSAccountModelMonitorModel": "AccountModel:MonitorModel:",
-
-
 	"TableMonitorModel" :
 	{
 		"StatusCode":
@@ -27,7 +25,6 @@
 		{
 			"Sample1"	: 	"MonitorModel:ModuleCallerSample1:",
 			"Sample2"	: 	"MonitorModel:ModuleCallerSample2:"
-		},
-}
-
+		}
+	}
 }
