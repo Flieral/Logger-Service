@@ -16,10 +16,10 @@ module.exports = {
     for (var i = 0; i < bodyKeys.length; i++) {
       switch (payloadCheck.monitorModelEntry.[bodyKeys[i]].type)
       {
-        case "int":
+        case 'int':
         body[bodyKeys[i] = parseInt(body[bodyKeys[i]]))
         break
-        case "double":
+        case 'double':
         body[bodyKeys[i] = parseFloat(body[bodyKeys[i]]))
         break
       }
@@ -30,8 +30,18 @@ module.exports = {
   validator: function(body, callback) {
     var bodyKeys = Object.keys(body)
     for (var i = 0; i < bodyKeys.length; i++) {
-      if (!payloadCheck.monitorModelEntry.[bodyKeys[i]])
-        callback(new Error(bodyKeys[i] + "Key does not exist"), null)
+      if (!payloadCheck.monitorModelEntry[bodyKeys[i]])
+        callback(new Error(bodyKeys[i] + 'Key does not exist'), null)
+      if(payloadCheck.monitorModelEntry[bodyKeys[i]].enum)
+      {
+        var validate = false
+        var enums = Object.keys(configuration.TableMonitorModel[payloadCheck.monitorModelEntry[bodyKeys[i]].enum])
+        for(var j = 0; j < enums.lenght; j++)
+          if(enums[j] === body[bodyKeys[i]])
+            validate = true
+      }
+      if(!validate)
+        callback(new Error('Enum does not exist'), null)
     }
   },
 
