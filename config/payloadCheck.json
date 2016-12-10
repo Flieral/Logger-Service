@@ -3,31 +3,36 @@
     "accountHashID": {
       "required": true,
       "type":"string",
-      "default": 0
+      "default": 0,
+
     },
 
     "statusCode":{
       "required": true,
       "type": "string",
-      "default": 0
+      "default": 0,
+      "enum": "statusCode"
     },
 
     "serviceCaller":{
       "required": true,
       "type": "string",
-      "default": 0
+      "default": 0,
+      "enum": "serviceCaller"
     },
-    
+
     "moduleCaller":{
       "required": true,
       "type": "string",
-      "default": 0
+      "default": 0,
+      "enum": "moduleCaller"
     },
 
     "action":{
       "required": true,
       "type": "string",
-      "default": 0
+      "default": 0,
+      "enum": "action"
     },
 
     "time":{
