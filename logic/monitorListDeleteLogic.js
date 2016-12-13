@@ -1,7 +1,7 @@
-var redisClient     = require('../public/redisClient.js').getClient()
-var configuration   = require('../config/configuration.json')
-var utility = require('../logic/utility.js')
-var monitormodelDelete = require('./monitorModelDeleteLogic')
+var redisClient   = require('../../public/redisClient').getClient()
+var configuration = require('../config/configuration.json')
+var utility       = require('../../public/utility')
+var monitorModelDelete = require('./monitorModelDeleteLogic')
 
 module.exports = function(accountHashID, filter, callback) {
   var destinationTableName = configuration.TableMAMonitorModel + configuration.TableTemporary + utility.generateUniqueHashID()
@@ -14,8 +14,8 @@ module.exports = function(accountHashID, filter, callback) {
         callback(err, null)
       for (var i = 0; i < tableName.length + 1; i++) {
         if (i == replies.length)
-          callback(null,replies)
-        monitormodelDelete(accountHashID, replies[i], function(err, replies) {
+          callback(null, configuration.message.log.removed)
+        monitorModelDelete(accountHashID, replies[i], function(err, replies) {
           if(err)
             callback(err, null)
         })
@@ -46,8 +46,8 @@ module.exports = function(accountHashID, filter, callback) {
           callback(err, null)
         for (var i = 0; i < replies.length + 1; i++) {
           if (i == replies.length)
-            callback(null, replies)
-          monitormodelDelete(accountHashID, replies[i], function(err, replies) {
+            callback(null, configuration.message.log.removed)
+          monitorModelDelete(accountHashID, replies[i], function(err, replies) {
             if(err)
               callback(err, null)
           })

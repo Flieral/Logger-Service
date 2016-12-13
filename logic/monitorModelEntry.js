@@ -1,13 +1,14 @@
-var configuration = require ('../config/configuration.json')
-var redisClient = require ('../publoc/redisClient.js').getClient()
-var utility = require('../logic/utility.js')
+var redisClient   = require('../../public/redisClient').getClient()
+var configuration = require('../config/configuration.json')
+var utility       = require('../../public/utility')
 
 module.exports = function(payload, callback) {
+  var tableName
+  var accountHashID
+  var timestamp
   var multi = redisClient.multi()
-  var tableName = null
-  var accountHashID = null
-  var timestamp = null
   var monitorHashID = utility.generateUniqueHashID()
+
   var modelAccessTableName = configuration.TableMAMonitorModel + monitorHashID
   multi.hmset(modelAccessTableName,
     configuration.ConstantMMTime, payload.time,
@@ -38,13 +39,13 @@ module.exports = function(payload, callback) {
   multi.zadd(tableName, monitorHashID, timestamp )
 
   multi.hmset(modelAccessTableName, configuration.CosntantMMLogMessage, payload.logMessage)
-  
-  if (payload.objectInfo != null)
-    multi.hset(modelAccessTableName, configuration.CosntantMMobjectInfo, payload.objectInfo)
+
+  if (payload.objectInfo !== null)
+  multi.hset(modelAccessTableName, configuration.CosntantMMobjectInfo, payload.objectInfo)
 
   multi.exec(function(err, replies) {
     if (err)
     callback(err, null)
-    callback(null, configuration.message.log.successful)
+    callback(null, configuration.message.log.entry)
   })
 }

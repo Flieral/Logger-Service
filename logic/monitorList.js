@@ -1,6 +1,6 @@
-var configuration = require ('../config/configuration.json')
-var redisClient = require('../public/redisClient.js').getClient()
-var utility = require('../logic/utility.js')
+var redisClient   = require('../../public/redisClient').getClient()
+var configuration = require('../config/configuration.json')
+var utility       = require('../../public/utility')
 
 module.exports = function(accountHashID, filter, callback) {
   var destinationTableName = configuration.TableMAMonitorModel + configuration.TableTemporary + utility.generateUniqueHashID()
@@ -8,11 +8,11 @@ module.exports = function(accountHashID, filter, callback) {
   var monitorModelTables = Object.keys(configuration.TableMonitorModel)
   if(filterKeys.length == 0) {
     var tableName = configuration.TableMSAccountModelMonitorModel + accountHashID
-    redisClient.zrangebyscore(tableName, 0, -1 ,'WITHSCORE', function(err , replies) {
+    redisClient.zrangebyscore(tableName, 0, -1 , 'WITHSCORE', function(err , replies) {
       if(err)
       callback(err, null)
       callback(null, replies)
-    } )
+    })
   }
   else {
     var args = []

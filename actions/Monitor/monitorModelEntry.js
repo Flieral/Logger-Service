@@ -1,4 +1,4 @@
-var payloadChecker = require('../../logic/payloadChecker')
+var payloadChecker  = require('../public/payloadChecker')
 var monitorModelEntryAction = require('../../logic/monitorModelEntryAction')
 
 exports.monitorModelEntry = {
@@ -7,17 +7,18 @@ exports.monitorModelEntry = {
 
   run: function(api, data, next) {
     var payload = JSON.parse(JSON.stringify(data.connection.rawConnection.params.body))
-    payloadChecker.startChecking(payload, function(error, result) {
-      if (error) {
-        data.response.error = error.error
-        next(error)
+    payloadChecker.startChecking(payload, function(err, replies) {
+      if (err) {
+        data.response.error = err.error
+        next(err)
       }
-      monitorModelEntryAction(playload, function(error, result) {
-        if (error) {
-          data.response.error = error.error
-          next(error)
+      monitorModelEntryAction(payload, function(err, replies) {
+        if (err) {
+          data.response.error = err.error
+          next(err)
         }
-        data.response.result = result
+        data.response.result = replies
+        next()
       })
     })
   }

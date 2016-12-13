@@ -15,12 +15,12 @@ exports.monitorModelDelete = {
   inputs: Input,
 
   run: function(api, data, next) {
-    monitorModelDeleteAction(data.accountHashID, data.monitorHashID, function (error, result) {
-      if (error) {
-        data.response.error = error.error
-        next(error)
+    monitorModelDeleteAction(data.accountHashID, data.monitorHashID, function (err, replies) {
+      if (err) {
+        data.response.error = err.error
+        next(err)
       }
-      data.response.result = result
+      data.response.result = replies
       next()
     })
   }

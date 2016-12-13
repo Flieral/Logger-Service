@@ -1,5 +1,5 @@
-var redisClient = require('../public/redisClient.js').getClient()
-var configuration 	= require('../config/configuration.json')
+var redisClient   = require('../../public/redisClient').getClient()
+var configuration = require('../config/configuration.json')
 
 module.exports = function(monitorHashID, callback) {
 	var monitorTable = configuration.TableMAMonitorModel + monitorHashID

@@ -38,12 +38,12 @@ exports.monitorListDelete = {
       serviceCaller: data.params.serviceCaller,
       moduleCaller: data.params.moduleCaller
     }
-    monitorListDeleteAction(data.params.accountHashID, filter, function (error, result) {
-      if (error) {
-        data.response.error = error.error
-        next(error)
+    monitorListDeleteAction(data.params.accountHashID, filter, function (err, replies) {
+      if (err) {
+        data.response.error = err.error
+        next(err)
       }
-      data.response.result = result
+      data.response.result = replies
       next()
     })
   }

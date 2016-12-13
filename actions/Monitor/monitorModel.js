@@ -12,12 +12,12 @@ exports.monitorModel = {
 	inputs: Input,
 
 	run: function(api, data, next) {
-		monitorModelAction(data.params.monitorHashID, function (error, result) {
-				if (error) {
-					data.response.error = error.error
-					next(error)
+		monitorModelAction(data.params.monitorHashID, function (err, replies) {
+				if (err) {
+					data.response.error = err.error
+					next(err)
 				}
-				data.response.result = result
+				data.response.result = replies
 				next()
 			}
 		)

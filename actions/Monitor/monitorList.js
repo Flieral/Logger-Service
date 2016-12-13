@@ -2,28 +2,28 @@ var monitorListAction = require('../../logic/monitorListAction')
 
 var Input = {
 	accountHashID: {
-		required: true
-		validator: function(value, connection, actionTemplate) {}
+		required: true,
+		validator: function(value, connection, actionTemplate) {},
 		default: function(value, connection, actionTemplate) {return 0}
 	},
 	statusCode: {
-		required: false
-		validator: function(value, connection, actionTemplate) {}
+		required: false,
+		validator: function(value, connection, actionTemplate) {},
 		default: function(value, connection, actionTemplate) {return 0}
 	},
 	action: {
-		required: false
-		validator: function(value, connection, actionTemplate) {}
+		required: false,
+		validator: function(value, connection, actionTemplate) {},
 		default: function(value, connection, actionTemplate) {return 0}
 	},
 	serviceCaller: {
-		required: false
-		validator: function(value, connection, actionTemplate) {}
+		required: false,
+		validator: function(value, connection, actionTemplate) {},
 		default: function(value, connection, actionTemplate) {return 0}
 	},
 	moduleCaller: {
-		required: false
-		validator: function(value, connection, actionTemplate) {}
+		required: false,
+		validator: function(value, connection, actionTemplate) {},
 		default: function(value, connection, actionTemplate) {return 0}
 	}
 }
@@ -40,12 +40,12 @@ exports.monitorList = {
 			serviceCaller: data.params.serviceCaller,
 			moduleCaller: data.params.moduleCaller
 		}
-		monitorListAction(data.params.accountHashID, filter, function (error, result) {
-			if (error) {
-				data.response.error = error.error
-				next(error)
+		monitorListAction(data.params.accountHashID, filter, function (err, replies) {
+			if (err) {
+				data.response.error = err.error
+				next(err)
 			}
-			data.response.result = result
+			data.response.result = replies
 			next()
 		})
 	}
