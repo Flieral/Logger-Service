@@ -2,40 +2,45 @@
 	"BaseURL":	"http://0.0.0.0:8080/api/1/",
 
 	"CosntantMMTime": "Time",
-    "CosntantMMStatusCode": "StatusCode",
-    "CosntantMMServiceCaller": "ServiceCaller",
-    "CosntantMMModuleCaller": "ModuleCaller",
-    "CosntantMMAction": "Action",
-    "CosntantMMLogMessage": "LogMessage",
-    "CosntantMMObjectInfo": "ObjectInfo",
-
-
-
+	"CosntantMMStatusCode": "StatusCode",
+	"CosntantMMServiceCaller": "ServiceCaller",
+	"CosntantMMModuleCaller": "ModuleCaller",
+	"CosntantMMAction": "Action",
+	"CosntantMMLogMessage": "LogMessage",
+	"CosntantMMObjectInfo": "ObjectInfo",
 
 	"TableMAMonitorModel": "MonitorModel:",
 	"TableTemporary": "Temporary:",
 	"TableMSAccountModelMonitorModel": "AccountModel:MonitorModel:",
-	"TableMonitorModel" :
-	{
-		"StatusCode":
-		{
+
+	"TableMonitorModel" : {
+		"statusCode": {
 			"Sample1"	: 	"MonitorModel:StatusCodeSample1:",
 			"Sample2"	: 	"MonitorModel:StatusCodeSample2:"
 		},
-		"Action"	:
-		{
+		"action"	: {
 			"Sample1"	: 	"MonitorModel:ActionSample1:",
 			"Sample2"	: 	"MonitorModel:ActionSample2:"
 		},
-		"ServiceCaller"	:
-		{
+		"serviceCaller"	: {
 			"Sample1"	: 	"MonitorModel:ServiceCallerSample1:",
 			"Sample2"	: 	"MonitorModel:ServiceCallerSample2:"
 		},
-		"ModuleCaller"	:
-		{
+		"moduleCaller"	: {
 			"Sample1"	: 	"MonitorModel:ModuleCallerSample1:",
 			"Sample2"	: 	"MonitorModel:ModuleCallerSample2:"
+		}
+	},
+
+	"message" : {
+		"missingKey" : "Key is Required",
+		"log" : {
+			"removed" : "200100100",
+			"entry" : "200100101"
+		},
+		"validator" : {
+			"successful" : "200210100",
+			"failed" : "200210101"
 		}
 	}
 }
