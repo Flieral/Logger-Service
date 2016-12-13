@@ -1,17 +1,17 @@
-var payloadCheck = require('../config/payloadCheck.json')
-var config = require('../config/configuration.json')
+var payloadCheck  = require('../config/payloadCheck.json')
+var configuration = require('../config/configuration.json')
 
 module.exports = {
-  requiredCheck: function(body, callback){
+  requiredCheck: function(body, callback) {
     var peyKeys = Object.keys(payloadCheck.monitorModelEntry)
     for (var i = 0; i < peyKeys.length; i++) {
       if (payloadCheck[peyKeys[i]].required && !body[peyKeys[i]]) {
-        callback(new Error(peyKeys[i] + config.message.keyRequiredError))
+        callback(new Error(peyKeys[i] + configuration.message.keyRequiredError))
       }
     }
   },
 
-  formatter: function(body, callback){
+  formatter: function(body, callback) {
     var bodyKeys = Object.keys(body)
     for (var i = 0; i < bodyKeys.length; i++) {
       switch (payloadCheck.monitorModelEntry.[bodyKeys[i]].type)
@@ -31,7 +31,7 @@ module.exports = {
     var bodyKeys = Object.keys(body)
     for (var i = 0; i < bodyKeys.length; i++) {
       if (!payloadCheck.monitorModelEntry[bodyKeys[i]])
-        callback(new Error(bodyKeys[i] + 'Key does not exist'), null)
+        callback(new Error(bodyKeys[i] + ' ' + configuration.message.missingKey), null)
       if(payloadCheck.monitorModelEntry[bodyKeys[i]].enum)
       {
         var validate = false
@@ -41,7 +41,7 @@ module.exports = {
             validate = true
       }
       if(!validate)
-        callback(new Error('Enum does not exist'), null)
+        callback(new Error(configuration.message.validator.failed), null)
     }
   },
 
