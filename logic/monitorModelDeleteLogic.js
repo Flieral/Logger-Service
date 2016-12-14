@@ -1,4 +1,4 @@
-var redisClient   = require('../../public/redisClient').getClient()
+var redisClient   = require('../public/redisClient').getClient()
 var configuration = require('../config/configuration.json')
 
 module.exports = function (accountHashID, monitorHashID, callback) {
@@ -18,9 +18,9 @@ module.exports = function (accountHashID, monitorHashID, callback) {
     var monitorModelOptionTablesKeys = Object.keys(configuration.TableMonitorModel[monitorModelTablesKeys[i]])
     for (var j = 0; j < monitorModelOptionTablesKeys.length; j++) {
       var opt = configuration.TableMonitorModel[monitorModelTablesKeys[i]]
-      var enum = Object.keys(opt)
-      multi.zrem(opt[enum[j]] + accountHashID, monitorHashID)
-      multi.zrem(opt[enum[j]], monitorHashID)
+      var enums = Object.keys(opt)
+      multi.zrem(opt[enums[j]] + accountHashID, monitorHashID)
+      multi.zrem(opt[enums[j]], monitorHashID)
     }
   }
   multi.zrem(configuration.TableMAMonitorModel, monitorHashID)

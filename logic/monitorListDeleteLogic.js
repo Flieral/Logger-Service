@@ -1,6 +1,6 @@
-var redisClient   = require('../../public/redisClient').getClient()
+var redisClient   = require('../public/redisClient').getClient()
 var configuration = require('../config/configuration.json')
-var utility       = require('../../public/utility')
+var utility       = require('../public/utility')
 var monitorModelDelete = require('./monitorModelDeleteLogic')
 
 module.exports = function(accountHashID, filter, callback) {

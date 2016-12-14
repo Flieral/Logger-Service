@@ -11,7 +11,7 @@ module.exports = {
 
 	base64Encoding: function(data) {
 		return new Buffer(data).toString('base64');
-	}
+	},
 
 	generateUniqueHashID: function() {
 		return uuid.v1()

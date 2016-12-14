@@ -1,4 +1,4 @@
-var monitorModelAction = require('../../logic/monitorModelAction')
+var monitorModelAction = require('../../logic/monitorModelLogic')
 
 var Input = {
 	monitorHashID: {

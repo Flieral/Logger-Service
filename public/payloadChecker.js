@@ -14,13 +14,13 @@ module.exports = {
   formatter: function(body, callback) {
     var bodyKeys = Object.keys(body)
     for (var i = 0; i < bodyKeys.length; i++) {
-      switch (payloadCheck.monitorModelEntry.[bodyKeys[i]].type)
+      switch (payloadCheck.monitorModelEntry[bodyKeys[i]].type)
       {
         case 'int':
-        body[bodyKeys[i] = parseInt(body[bodyKeys[i]]))
+        body[bodyKeys[i]] = parseInt(body[bodyKeys[i]])
         break
         case 'double':
-        body[bodyKeys[i] = parseFloat(body[bodyKeys[i]]))
+        body[bodyKeys[i]] = parseFloat(body[bodyKeys[i]])
         break
       }
     }

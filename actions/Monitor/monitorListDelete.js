@@ -1,4 +1,4 @@
-var monitorListDeleteAction = require('../../logic/monitorListDeleteAction')
+var monitorListDeleteAction = require('../../logic/monitorListDeleteLogic')
 
 var Input = {
   accountHashID: {

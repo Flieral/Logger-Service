@@ -1,5 +1,5 @@
-var payloadChecker  = require('../public/payloadChecker')
-var monitorModelEntryAction = require('../../logic/monitorModelEntryAction')
+var payloadChecker  = require('../../public/payloadChecker')
+var monitorModelEntryAction = require('../../logic/monitorModelEntryLogic')
 
 exports.monitorModelEntry = {
   name: "monitorModelEntry",

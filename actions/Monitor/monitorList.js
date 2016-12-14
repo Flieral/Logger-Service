@@ -1,4 +1,4 @@
-var monitorListAction = require('../../logic/monitorListAction')
+var monitorList = require('../../logic/monitorListLogic')
 
 var Input = {
 	accountHashID: {
@@ -29,8 +29,8 @@ var Input = {
 }
 
 exports.monitorList = {
-	name = 'monitorList',
-	description = 'Get monitor List',
+	name : 'monitorList',
+	description : 'Get monitor List',
 	inputs: Input,
 
 	run: function(api, data, next) {
@@ -40,7 +40,7 @@ exports.monitorList = {
 			serviceCaller: data.params.serviceCaller,
 			moduleCaller: data.params.moduleCaller
 		}
-		monitorListAction(data.params.accountHashID, filter, function (err, replies) {
+		monitorList(data.params.accountHashID, filter, function (err, replies) {
 			if (err) {
 				data.response.error = err.error
 				next(err)

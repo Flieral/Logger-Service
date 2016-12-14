@@ -1,6 +1,6 @@
-var redisClient   = require('../../public/redisClient').getClient()
+var redisClient   = require('../public/redisClient').getClient()
 var configuration = require('../config/configuration.json')
-var utility       = require('../../public/utility')
+var utility       = require('../public/utility')
 
 module.exports = function(accountHashID, filter, callback) {
   var destinationTableName = configuration.TableMAMonitorModel + configuration.TableTemporary + utility.generateUniqueHashID()
@@ -33,7 +33,7 @@ module.exports = function(accountHashID, filter, callback) {
     redisClient.multi()
     .zinterstore(args)
     .zremrangebyrank(destinationTableName, 0, -1)
-    .exec(fucntion(err, replies) {
+    .exec(function(err, replies) {
       if(err)
       callback(err, null)
       callback(null, replies)
