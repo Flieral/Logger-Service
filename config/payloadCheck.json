@@ -37,7 +37,7 @@
 
     "time":{
       "required": true,
-      "type": "string",
+      "type": "double",
       "default": 0
     },
 
