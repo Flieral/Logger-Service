@@ -21,7 +21,7 @@ module.exports = function(payload, callback) {
   )
 
   accountHashID = payload[accountHashID]
-  timestamp = playload[time]
+  timestamp = payload[time]
 
   tableName = configuration.TableMSAccountModelMonitorModel + accountHashID
   multi.zadd(tableName, monitorHashID, timestamp)
@@ -45,7 +45,7 @@ module.exports = function(payload, callback) {
 
   multi.exec(function(err, replies) {
     if (err)
-    callback(err, null)
+      callback(err, null)
     callback(null, configuration.message.log.entry)
   })
 }

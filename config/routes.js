@@ -1,7 +1,5 @@
-exports.default =
-{
-	routes: function(api)
-	{
+exports.default = {
+	routes: function(api) {
 		return {
 			get:
 			[
@@ -12,10 +10,7 @@ exports.default =
 				/* 	STATUS 	*/
 				{path: '/:apiVersion/Service/Status'					, action: 'Status'}
 			],
-			put:
-			[
-
-			],
+		
 			post:
 			[
 				/* URIs */
@@ -27,6 +22,6 @@ exports.default =
 				{path: '/:apiVersion/monitor'						, action: 'monitorListDelete'},
 				{path: '/:apiVersion/monitor/:monitorHashID'		, action: 'monitorModelDelete'}
 			]
-		};
+		}
 	}
-};
+}

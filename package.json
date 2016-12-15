@@ -11,7 +11,7 @@
     "fakeredis": "^1.0.3",
     "ioredis": "latest",
     "node-uuid": "^1.4.7",
-    "request": "^2.74.0",
+    "request": "^2.79.0",
     "ws": "latest"
   },
   "devDependencies": {

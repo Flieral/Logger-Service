@@ -1,63 +1,197 @@
-var payloadCheck  = require('../config/payloadCheck.json')
-var configuration = require('../config/configuration.json')
+var payloadCheck = require ("../config/payloadCheck.json")
 
 module.exports = {
-  requiredCheck: function(body, callback) {
-    var peyKeys = Object.keys(payloadCheck.monitorModelEntry)
-    for (var i = 0; i < peyKeys.length; i++) {
-      if (payloadCheck[peyKeys[i]].required && !body[peyKeys[i]]) {
-        callback(new Error(peyKeys[i] + configuration.message.keyRequiredError))
+  requiredCheck: function(body, option, callback) {
+    var counter = 0
+    var peyKeys = Object.keys(payloadCheck)
+    var payload = payloadCheck
+    var depth = 0
+    var lenghtTemp = []
+    var peyKeysTemp = []
+    var counterTemp = []
+    var counterTempCounter = 0
+    var peyKeysTempCounter = 0
+    var payloadTemp = []
+    var payloadCounter = 0
+    lenghtTemp[0] = peyKeys.length
+    do {
+      while (counter < lenghtTemp[depth]) {
+
+        if (payload[peyKeys[counter]].required ==null) {
+
+          payloadTemp[payloadCounter++] = payload
+          payload = payload[peyKeys[counter]]
+
+          counter = counter + 1
+          counterTemp[counterTempCounter++] = counter
+          counter = 0
+          depth++
+
+          peyKeysTemp[peyKeysTempCounter++] = peyKeys
+          peyKeys = Object.keys(payload)
+          lenghtTemp[depth] = peyKeys.length
+          continue
+        }
+        //--------------------------------------------------------------------------------------------
+        if (payload[peyKeys[counter]].required && !body[peyKeys[counter]])
+          callback(new Error(peyKeys[i] + configuration.message.keyRequiredError))
+        counter++
+
+        //---------------------------------------------------------------------------------------------
       }
-    }
+      if (depth > 0){
+        depth--
+        payload = payloadTemp[--payloadCounter]
+        peyKeys = peyKeysTemp[--peyKeysTempCounter]
+        counter = counterTemp[--counterTempCounter]
+        continue
+      }
+
+      if (depth == 0)
+      break
+    } while (true)
   },
 
   formatter: function(body, callback) {
     var bodyKeys = Object.keys(body)
-    for (var i = 0; i < bodyKeys.length; i++) {
-      switch (payloadCheck.monitorModelEntry[bodyKeys[i]].type)
-      {
-        case 'int':
-        body[bodyKeys[i]] = parseInt(body[bodyKeys[i]])
-        break
-        case 'double':
-        body[bodyKeys[i]] = parseFloat(body[bodyKeys[i]])
-        break
+    var counter = 0
+    var peyKeys = Object.keys(payloadCheck)
+    var payload = payloadCheck
+    var depth = 0
+    var lenghtTemp = []
+    var peyKeysTemp = []
+    var counterTemp = []
+    var counterTempCounter = 0
+    var peyKeysTempCounter = 0
+    var payloadTemp = []
+    var payloadCounter = 0
+    lenghtTemp[0] = peyKeys.length
+
+    do {
+      while(counter < lenghtTemp[depth]) {
+
+        if (payload[peyKeys[counter]].required ==null) {
+
+          payloadTemp[payloadCounter++] = payload
+          payload = payload[peyKeys[counter]]
+
+          counter = counter + 1
+          counterTemp[counterTempCounter++] = counter
+          counter = 0
+          depth++
+
+          peyKeysTemp[peyKeysTempCounter++] = peyKeys
+          peyKeys = Object.keys(payload)
+          lenghtTemp[depth] = peyKeys.length
+
+          continue
+        }
+
+        //--------------------------------------------------------------------------------------------
+        if (body[peyKeys[counter]])
+        switch (payload[peyKeys[counter]].type)
+        {
+          case 'int':
+          body[peyKeys[counter]] = parseInt(body[peyKeys[counter]])
+          break
+          case 'double':
+          body[peyKeys[counter]] = parseFloat(body[peyKeys[counter]])
+          break
+        }
+        //---------------------------------------------------------------------------------------------
+        counter++
       }
-    }
+      if (depth > 0){
+        depth--
+        payload = payloadTemp[--payloadCounter]
+        peyKeys = peyKeysTemp[--peyKeysTempCounter]
+
+        counter = counterTemp[--counterTempCounter]
+        continue
+      }
+      if (depth == 0)
+      break
+    } while (true)
+
     callback(null, body)
   },
 
   validator: function(body, callback) {
     var bodyKeys = Object.keys(body)
+    var counter = 0
+    var peyKeys = Object.keys(payloadCheck)
+    var payload = payloadCheck
+    var depth = 0
+    var lenghtTemp = []
+    var peyKeysTemp = []
+    var counterTemp = []
+    var counterTempCounter = 0
+    var peyKeysTempCounter = 0
+    var payloadTemp = []
+    var payloadCounter = 0
+    lenghtTemp[0] = peyKeys.length
+
     for (var i = 0; i < bodyKeys.length; i++) {
-      if (!payloadCheck.monitorModelEntry[bodyKeys[i]])
-        callback(new Error(bodyKeys[i] + ' ' + configuration.message.missingKey), null)
-      if(payloadCheck.monitorModelEntry[bodyKeys[i]].enum)
-      {
-        var validate = false
-        var enums = Object.keys(configuration.TableMonitorModel[payloadCheck.monitorModelEntry[bodyKeys[i]].enum])
-        for(var j = 0; j < enums.lenght; j++)
-          if(enums[j] === body[bodyKeys[i]])
-            validate = true
-      }
-      if(!validate)
-        callback(new Error(configuration.message.validator.failed), null)
+      var bodyKeyFound = false
+      var validate = false
+
+      do {
+        while (counter < lenghtTemp[depth]) {
+
+          if(payload[peyKeys[counter]].required ==null) {
+
+            payloadTemp[payloadCounter++] = payload
+            payload = payload[peyKeys[counter]]
+
+            counter = counter + 1
+            counterTemp[counterTempCounter++] = counter
+            counter = 0
+            depth++
+
+            peyKeysTemp[peyKeysTempCounter++] = peyKeys
+            peyKeys = Object.keys(payload)
+            lenghtTemp[depth] = peyKeys.length
+
+            continue
+          }
+
+          //--------------------------------------------------------------------------------------------
+          if (payload[peyKeys[counter]] == bodyKeys[i]){
+            bodyKeyFound = true
+            if (payload[peyKeys[counter]].enum){
+              var enums = Object.keys(configuration.Enums[payload[peyKeys[counter]]].enum)
+              for (var j = 0; j < enums.lenght; j++)
+                if(enums[j] === body[bodyKeys[i]])
+                  validate = true
+            }
+          }
+
+          //---------------------------------------------------------------------------------------------
+          counter++
+        }
+        if (depth > 0){
+          depth--
+          payload = payloadTemp[--payloadCounter]
+          peyKeys = peyKeysTemp[--peyKeysTempCounter]
+          counter = counterTemp[--counterTempCounter]
+          continue
+        }
+        if (depth == 0)
+        break
+      }while(true)
+
+      if (!bodykeyFound)
+      callback(new Error(bodyKeys[i] + ' ' + configuration.message.missingKey), null)
+      if (!validate)
+      callback(new Error(configuration.message.validator.failed), null)
     }
   },
 
-  startChecking: function(body, finalCallback) {
-    this.requiredCheck(body, function(error) {
-      if(error)
-        finalcallback(error, null)
-    })
-    this.validator(body, function(error) {
-      if(error)
-        finalcallback(error, null)
-    })
-    this.formatter(body, function(error, result) {
-      if(error)
-        finalcallback(error, null)
-      finalCallback(null, result)
-    })
-  }
+  startChecking: function(body, option, finalCallback) {
+    this.requiredCheck(body, option, function(error) {
+      if (error)
+      	finalcallback(error, null)
+  		finalCallback(null, result)
+		})
+	}
 }
