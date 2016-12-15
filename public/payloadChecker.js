@@ -32,12 +32,10 @@ module.exports = {
           lenghtTemp[depth] = peyKeys.length
           continue
         }
-        //--------------------------------------------------------------------------------------------
-        if (payload[peyKeys[counter]].required && !body[peyKeys[counter]])
-          callback(new Error(peyKeys[i] + configuration.message.keyRequiredError))
+        if (payload[peyKeys[counter]].required && !body[peyKeys[counter]]){
+          callback(new Error('Required Key Missing'))
+        }
         counter++
-
-        //---------------------------------------------------------------------------------------------
       }
       if (depth > 0){
         depth--
@@ -86,8 +84,6 @@ module.exports = {
 
           continue
         }
-
-        //--------------------------------------------------------------------------------------------
         if (body[peyKeys[counter]])
         switch (payload[peyKeys[counter]].type)
         {
@@ -98,7 +94,6 @@ module.exports = {
           body[peyKeys[counter]] = parseFloat(body[peyKeys[counter]])
           break
         }
-        //---------------------------------------------------------------------------------------------
         counter++
       }
       if (depth > 0){
@@ -154,19 +149,15 @@ module.exports = {
 
             continue
           }
-
-          //--------------------------------------------------------------------------------------------
           if (payload[peyKeys[counter]] == bodyKeys[i]){
             bodyKeyFound = true
             if (payload[peyKeys[counter]].enum){
-              var enums = Object.keys(configuration.Enums[payload[peyKeys[counter]]].enum)
+              var enums = Object.keys(configuration.enums[payload[peyKeys[counter]]].enum)
               for (var j = 0; j < enums.lenght; j++)
-                if(enums[j] === body[bodyKeys[i]])
-                  validate = true
+              if(enums[j] === body[bodyKeys[i]])
+              validate = true
             }
           }
-
-          //---------------------------------------------------------------------------------------------
           counter++
         }
         if (depth > 0){
@@ -190,8 +181,8 @@ module.exports = {
   startChecking: function(body, option, finalCallback) {
     this.requiredCheck(body, option, function(error) {
       if (error)
-      	finalcallback(error, null)
-  		finalCallback(null, result)
-		})
-	}
+      finalcallback(error, null)
+      finalCallback(null, true)
+    })
+  }
 }

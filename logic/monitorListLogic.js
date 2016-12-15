@@ -1,8 +1,7 @@
-var redisClient   = require('../public/redisClient').getClient()
 var configuration = require('../config/configuration.json')
 var utility       = require('../public/utility')
 
-module.exports = function(accountHashID, filter, callback) {
+module.exports = function(redisClient, accountHashID, filter, callback) {
   var destinationTableName = configuration.TableMAMonitorModel + configuration.TableTemporary + utility.generateUniqueHashID()
   var filterKeys = Object.keys(filter)
   var monitorModelTables = Object.keys(configuration.TableMonitorModel)

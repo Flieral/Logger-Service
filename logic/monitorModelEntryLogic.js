@@ -1,8 +1,7 @@
-var redisClient   = require('../public/redisClient').getClient()
 var configuration = require('../config/configuration.json')
 var utility       = require('../public/utility')
 
-module.exports = function(payload, callback) {
+module.exports = function(redisClient, payload, callback) {
   var tableName
   var accountHashID
   var timestamp
@@ -21,31 +20,31 @@ module.exports = function(payload, callback) {
   )
 
   accountHashID = payload[accountHashID]
-  timestamp = payload[time]
+  timestamp = payload['time']
 
   tableName = configuration.TableMSAccountModelMonitorModel + accountHashID
   multi.zadd(tableName, monitorHashID, timestamp)
 
-  tableName =configuration.TableMonitorModel.statusCode[payload[statusCode]] + accountHashID
+  tableName =configuration.TableMonitorModel.statusCode[payload['statusCode']] + accountHashID
   multi.zadd(tableName, monitorHashID, timestamp )
 
-  tableName =configuration.TableMonitorModel.serviceCaller[payload[serviceCaller]] + accountHashID
+  tableName =configuration.TableMonitorModel.serviceCaller[payload['serviceCaller']] + accountHashID
   multi.zadd(tableName, monitorHashID, timestamp)
 
-  tableName =configuration.TableMonitorModel.moduleCaller[payload[moduleCaller]] + accountHashID
+  tableName =configuration.TableMonitorModel.moduleCaller[payload['moduleCaller']] + accountHashID
   multi.zadd(tableName, monitorHashID, timestamp)
 
-  tableName =configuration.TableMonitorModel.action[payload[action]] + accountHashID
+  tableName =configuration.TableMonitorModel.action[payload['action']] + accountHashID
   multi.zadd(tableName, monitorHashID, timestamp )
 
-  multi.hmset(modelAccessTableName, configuration.CosntantMMLogMessage, payload.logMessage)
+  multi.hmset(modelAccessTableName, configuration.ConstantMMLogMessage, payload.logMessage)
 
   if (payload.objectInfo !== null)
-  multi.hset(modelAccessTableName, configuration.CosntantMMobjectInfo, payload.objectInfo)
+  multi.hset(modelAccessTableName, configuration.ConstantMMobjectInfo, payload.objectInfo)
 
   multi.exec(function(err, replies) {
     if (err)
-      callback(err, null)
-    callback(null, configuration.message.log.entry)
+    callback(err, null)
+    callback(null, monitorHashID)
   })
 }

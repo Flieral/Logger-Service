@@ -38,7 +38,7 @@ exports.monitorListDelete = {
       serviceCaller: data.params.serviceCaller,
       moduleCaller: data.params.moduleCaller
     }
-    monitorListDeleteAction(data.params.accountHashID, filter, function (err, replies) {
+    monitorListDeleteAction(api.redisClient, data.params.accountHashID, filter, function (err, replies) {
       if (err) {
         data.response.error = err.error
         next(err)

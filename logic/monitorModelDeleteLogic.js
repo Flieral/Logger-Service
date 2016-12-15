@@ -1,17 +1,16 @@
-var redisClient   = require('../public/redisClient').getClient()
 var configuration = require('../config/configuration.json')
 
-module.exports = function (accountHashID, monitorHashID, callback) {
+module.exports = function (redisClient, accountHashID, monitorHashID, callback) {
   multi = redisClient.multi()
   var monitorTable = configuration.TableMAMonitorModel + monitorHashID
   multi.hdel(monitorTable,
-    configuration.CosntantMMTime,
-    configuration.CosntantMMStatusCode,
-    configuration.CosntantMMServiceCaller,
-    configuration.CosntantMMModuleCaller,
-    configuration.CosntantMMAction,
-    configuration.CosntantMMLogMessage,
-    configuration.CosntantMMObjectInfo
+    configuration.ConstantMMTime,
+    configuration.ConstantMMStatusCode,
+    configuration.ConstantMMServiceCaller,
+    configuration.ConstantMMModuleCaller,
+    configuration.ConstantMMAction,
+    configuration.ConstantMMLogMessage,
+    configuration.ConstantMMObjectInfo
   )
   var monitorModelTablesKeys = Object.keys(configuration.TableMonitorModel)
   for(var i = 0; i < monitorModelTablesKeys.length; i++) {

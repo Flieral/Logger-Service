@@ -40,7 +40,7 @@ exports.monitorList = {
 			serviceCaller: data.params.serviceCaller,
 			moduleCaller: data.params.moduleCaller
 		}
-		monitorList(data.params.accountHashID, filter, function (err, replies) {
+		monitorList(api.redisClient, data.params.accountHashID, filter, function (err, replies) {
 			if (err) {
 				data.response.error = err.error
 				next(err)
