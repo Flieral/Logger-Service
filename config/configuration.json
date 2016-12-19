@@ -18,7 +18,7 @@
 			"Sample1"	: 	"MonitorModel:StatusCodeSample1:",
 			"Sample2"	: 	"MonitorModel:StatusCodeSample2:"
 		},
-		"action"	: {
+		"actionType"	: {
 			"Sample1"	: 	"MonitorModel:ActionSample1:",
 			"Sample2"	: 	"MonitorModel:ActionSample2:"
 		},
