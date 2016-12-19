@@ -22,7 +22,7 @@ module.exports = function (redisClient, accountHashID, monitorHashID, callback) 
       multi.zrem(opt[enums[j]], monitorHashID)
     }
   }
-  multi.zrem(configuration.TableMSAccountModelMonitorModel + accountHashID)
+  multi.zrem(configuration.TableMSAccountModelMonitorModel + accountHashID, monitorHashID)
   multi.zrem(configuration.TableMAMonitorModel, monitorHashID)
   multi.exec(function (err, replies) {
     if (err)
