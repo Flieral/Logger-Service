@@ -6,23 +6,19 @@ var Input = {
   },
   statusCode: {
     required: false,
-    validator: function(value, connection, actionTemplate) {},
-    default: function(value, connection, actionTemplate) {}
+		validator: function(value, connection, actionTemplate) {return true}
   },
-  action: {
+  actionType: {
     required: false,
-    validator: function(value, connection, actionTemplate) {},
-    default: function(value, connection, actionTemplate) {}
+		validator: function(value, connection, actionTemplate) {return true}
   },
   serviceCaller: {
     required: false,
-    validator: function(value, connection, actionTemplate) {},
-    default: function(value, connection, actionTemplate) {}
+		validator: function(value, connection, actionTemplate) {return true}
   },
   moduleCaller: {
     required: false,
-    validator: function(value, connection, actionTemplate) {},
-    default: function(value, connection, actionTemplate) {}
+		validator: function(value, connection, actionTemplate) {return true}
   }
 }
 
@@ -32,12 +28,17 @@ exports.monitorListDelete = {
   inputs: Input,
 
   run: function (api, data, next) {
-    var filter = {
-      statusCode: data.params.statusCode,
-      action: data.params.action,
-      serviceCaller: data.params.serviceCaller,
-      moduleCaller: data.params.moduleCaller
-    }
+
+    var filter = {}
+		if (data.params.statusCode)
+		filter.statusCode = data.params.statusCode
+		if (data.params.actionType)
+		filter.actionType = data.params.actionType
+		if (data.params.serviceCaller)
+		filter.serviceCaller = data.params.serviceCaller
+		if (data.params.moduleCaller)
+		filter.moduleCaller = data.params.moduleCaller
+
     monitorListDeleteAction(api.redisClient, data.params.accountHashID, filter, function (err, replies) {
       if (err) {
         data.response.error = err.error

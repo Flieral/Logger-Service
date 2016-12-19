@@ -15,7 +15,7 @@ exports.monitorModelDelete = {
   inputs: Input,
 
   run: function(api, data, next) {
-    monitorModelDeleteAction(api.redisClient, data.accountHashID, data.monitorHashID, function (err, replies) {
+    monitorModelDeleteAction(api.redisClient, data.params.accountHashID, data.params.monitorHashID, function (err, replies) {
       if (err) {
         data.response.error = err.error
         next(err)

@@ -7,20 +7,13 @@ exports.monitorModelEntry = {
 
   run: function(api, data, next) {
     var payload = JSON.parse(JSON.stringify(data.connection.rawConnection.params.body))
-
-    payloadChecker.startChecking(payload, function(err, replies) {
+    monitorModelEntryLogic(api.redisClient, payload, function(err, replies) {
       if (err) {
         data.response.error = err.error
         next(err)
       }
-      monitorModelEntryLogic(api.redisClient, payload, function(err, replies) {
-        if (err) {
-          data.response.error = err.error
-          next(err)
-        }
-        data.response.result = replies
-        next()
-      })
+      data.response.result = replies
+      next()
     })
   }
 }
