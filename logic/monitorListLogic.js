@@ -7,7 +7,7 @@ module.exports = function(redisClient, accountHashID, filter, callback) {
   var monitorModelTables = Object.keys(configuration.TableMonitorModel)
   if(filterKeys.length == 0) {
     var tableName = configuration.TableMSAccountModelMonitorModel + accountHashID
-    redisClient.zrangebyscore(tableName, 0, -1 , 'WITHSCORE', function(err , replies) {
+    redisClient.zrangebyscore(tableName, '-inf', '+inf' , 'WITHSCORE', function(err , replies) {
       if(err)
       callback(err, null)
       callback(null, replies)
@@ -17,15 +17,9 @@ module.exports = function(redisClient, accountHashID, filter, callback) {
     var args = []
     args.push(destinationTableName)
     args.push(filterKeys.length)
-    for(var i = 0; i < filterKeys.length; i++)
-    for(var j = 0; j < monitorModelTables.length; j++)
-    if(monitorModelTables[j] === filterKeys[i]) {
-      var enums = Object.keys(monitorModelTables[j])
-      for(var k = 0; k < enums.length; k++)
-      if(enums[k] === filter[filterKeys[i]]) {
-        var r = configuration.TableMonitorModel[filterKeys[i]]
-        args.push(r[enums[k]])
-      }
+    for(var i = 0; i < filterKeys.length; i++) {
+      var key = configuration.TableMonitorModel[filterKeys[i]]
+      args.push(key[filter[filterKeys[i]]] + accountHashID)
     }
     args.push('AGGREGATE')
     args.push('MAX')

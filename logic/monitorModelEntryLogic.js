@@ -14,37 +14,48 @@ module.exports = function(redisClient, payload, callback) {
     configuration.ConstantMMServiceCaller, payload.serviceCaller,
     configuration.ConstantMMStatusCode, payload.statusCode,
     configuration.ConstantMMModuleCaller, payload.moduleCaller,
-    configuration.ConstantMMAction, payload.action,
+    configuration.ConstantMMAction, payload.actionType,
     configuration.ConstantMMLogMessage, payload.logMessage,
-    configuration.ConstantMMObjectInfo, payload.objectInfo
+    redisClient.print
   )
 
-  accountHashID = payload[accountHashID]
+  accountHashID = payload['accountHashID']
   timestamp = payload['time']
 
   tableName = configuration.TableMSAccountModelMonitorModel + accountHashID
-  multi.zadd(tableName, monitorHashID, timestamp)
+  multi.zadd(tableName, timestamp, monitorHashID, redisClient.print)
 
-  tableName =configuration.TableMonitorModel.statusCode[payload['statusCode']] + accountHashID
-  multi.zadd(tableName, monitorHashID, timestamp )
+  tableName = configuration.TableMonitorModel.statusCode[payload['statusCode']] + accountHashID
+  multi.zadd(tableName, timestamp, monitorHashID, redisClient.print)
 
-  tableName =configuration.TableMonitorModel.serviceCaller[payload['serviceCaller']] + accountHashID
-  multi.zadd(tableName, monitorHashID, timestamp)
+  tableName = configuration.TableMonitorModel.serviceCaller[payload['serviceCaller']] + accountHashID
+  multi.zadd(tableName, timestamp, monitorHashID, redisClient.print)
 
-  tableName =configuration.TableMonitorModel.moduleCaller[payload['moduleCaller']] + accountHashID
-  multi.zadd(tableName, monitorHashID, timestamp)
+  tableName = configuration.TableMonitorModel.moduleCaller[payload['moduleCaller']] + accountHashID
+  multi.zadd(tableName, timestamp, monitorHashID, redisClient.print)
 
-  tableName =configuration.TableMonitorModel.action[payload['action']] + accountHashID
-  multi.zadd(tableName, monitorHashID, timestamp )
+  tableName = configuration.TableMonitorModel.actionType[payload['actionType']] + accountHashID
+  multi.zadd(tableName, timestamp, monitorHashID, redisClient.print)
 
-  multi.hmset(modelAccessTableName, configuration.ConstantMMLogMessage, payload.logMessage)
+  multi.zadd(configuration.TableMAMonitorModel, timestamp, monitorHashID, redisClient.print)
 
-  if (payload.objectInfo !== null)
-  multi.hset(modelAccessTableName, configuration.ConstantMMobjectInfo, payload.objectInfo)
+  multi.zadd(configuration.TableMonitorModel.statusCode[payload['statusCode']], timestamp, monitorHashID, redisClient.print)
+
+  multi.zadd(configuration.TableMonitorModel.serviceCaller[payload['serviceCaller']], timestamp, monitorHashID, redisClient.print)
+
+  multi.zadd(configuration.TableMonitorModel.moduleCaller[payload['moduleCaller']], timestamp, monitorHashID, redisClient.print)
+
+  multi.zadd(configuration.TableMonitorModel.actionType[payload['actionType']], timestamp, monitorHashID, redisClient.print)
+
+  if (payload.objectInfo != null)
+  multi.hset(modelAccessTableName, configuration.ConstantMMObjectInfo, payload.objectInfo, redisClient.print)
 
   multi.exec(function(err, replies) {
     if (err)
     callback(err, null)
-    callback(null, monitorHashID)
+    var res = {}
+    res.monitorHashID = monitorHashID
+    res.accountHashID = accountHashID
+    callback(null, res)
   })
 }
