@@ -41,5 +41,20 @@ module.exports = {
 		for (var p in obj2)
 			if (typeof (obj1[p]) == 'undefined') return false
 		return true
+	},
+
+	arrayCompare(arr1, arr2) {
+		var check = 0
+		if (arr1.length == arr2.length) {
+			for (var i = 0; i < arr1.length; i++)
+			for (var j = 0; j < arr2.length; j++)
+			if (arr1[i] == arr2[j]) {
+				check++
+				break
+			}
+			if (check == arr1.length)
+			return true
+		}
+		return false
 	}
 }
