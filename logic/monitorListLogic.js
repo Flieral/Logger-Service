@@ -7,7 +7,7 @@ module.exports = function(redisClient, accountHashID, filter, callback) {
   var monitorModelTables = Object.keys(configuration.TableMonitorModel)
   if(filterKeys.length == 0) {
     var tableName = configuration.TableMSAccountModelMonitorModel + accountHashID
-    redisClient.zrangebyscore(tableName, '-inf', '+inf' , 'WITHSCORE', function(err , replies) {
+    redisClient.zrangebyscore(tableName, '0', '-1' , 'WITHSCORES', function(err , replies) {
       if(err)
       callback(err, null)
       callback(null, replies)
@@ -27,7 +27,7 @@ module.exports = function(redisClient, accountHashID, filter, callback) {
     redisClient.zinterstore(args, function(err, replies) {
       if (err)
       callback(err, null)
-      redisClient.zrangebyscore(tableName, '0', '-1' , 'WITHSCORE', function(err , replies) {
+      redisClient.zrangebyscore(tableName, '0', '-1' , 'WITHSCORES', function(err , replies) {
         if(err)
         callback(err, null)
         result = replies
