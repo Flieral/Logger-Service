@@ -45,6 +45,10 @@ module.exports = function(redisClient, accountHashID, filter, callback) {
               callback(err, null)
           })
         }
+        redisClient.zremrangebyrank(destinationTableName, 0, -1, function(err, replies) {
+          if (err)
+          callback(err, null)
+        })
       })
     })
   }

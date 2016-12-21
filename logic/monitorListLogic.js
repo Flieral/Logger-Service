@@ -31,7 +31,7 @@ module.exports = function(redisClient, accountHashID, filter, callback) {
         if(err)
         callback(err, null)
         result = replies
-        redisClient.zremrangebyrank(redisClient, 0, -1, function(err, replies) {
+        redisClient.zremrangebyrank(destinationTableName, 0, -1, function(err, replies) {
           if (err)
           callback(err, null)
           callback(null, result)
