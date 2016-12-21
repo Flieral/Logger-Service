@@ -14,6 +14,7 @@ module.exports = function(redisClient, accountHashID, filter, callback) {
     })
   }
   else {
+    var result = {}
     var args = []
     args.push(destinationTableName)
     args.push(filterKeys.length)
@@ -23,13 +24,19 @@ module.exports = function(redisClient, accountHashID, filter, callback) {
     }
     args.push('AGGREGATE')
     args.push('MAX')
-    redisClient.multi()
-    .zinterstore(args)
-    .zremrangebyrank(destinationTableName, 0, -1)
-    .exec(function(err, replies) {
-      if(err)
+    redisClient.zinterstore(args, function(err, replies) {
+      if (err)
       callback(err, null)
-      callback(null, replies)
+      redisClient.zrangebyscore(tableName, '0', '-1' , 'WITHSCORE', function(err , replies) {
+        if(err)
+        callback(err, null)
+        result = replies
+        redisClient.zremrangebyrank(redisClient, 0, -1, function(err, replies) {
+          if (err)
+          callback(err, null)
+          callback(null, result)
+        })
+      })
     })
   }
 }
