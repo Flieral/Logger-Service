@@ -1,13 +1,13 @@
 {
 	"BaseURL":	"http://0.0.0.0:8080/api/1/",
 
-	"ConstantMMTime": "Time",
-	"ConstantMMStatusCode": "StatusCode",
-	"ConstantMMServiceCaller": "ServiceCaller",
-	"ConstantMMModuleCaller": "ModuleCaller",
-	"ConstantMMAction": "Action",
-	"ConstantMMLogMessage": "LogMessage",
-	"ConstantMMObjectInfo": "ObjectInfo",
+	"ConstantMMTime": "time",
+	"ConstantMMStatusCode": "statusCode",
+	"ConstantMMServiceCaller": "serviceCaller",
+	"ConstantMMModuleCaller": "moduleCaller",
+	"ConstantMMAction": "actionType",
+	"ConstantMMLogMessage": "logMessage",
+	"ConstantMMObjectInfo": "objectInfo",
 
 	"TableMAMonitorModel": "MonitorModel:",
 	"TableTemporary": "Temporary:",
