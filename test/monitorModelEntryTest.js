@@ -17,17 +17,31 @@ describe('Server: Web', function () {
 	after(function (done) {
 		done()
 	})
-
+	var monitorHashID
 	it('Entry a Monitor Model For Test', function(done) {
 		var body = JSON.stringify({accountHashID: 'mrwooj', statusCode: 'Sample2', serviceCaller: 'Sample2', moduleCaller: 'Sample1', actionType:'Sample1', time:1234567890, logMessage:'this is success', objectInfo:'this object had info but it has not now!!' })
 		request.post(url + '/1/monitor', {'body': body, 'headers': {'Content-type': 'application/json'}}, function (error, response, body) {
 			if (error) 
 				console.log(error)
 			body = JSON.parse(body)
-			if(body.result) 
+			if(body.result) {
+				monitorHashID = body.result.monitorHashID
 				done()
+			}
 			else 
 				done(new Error('Result is Null!'))
 		})
 	})
+
+	it('Delete test inserted log', function(done) {
+    request.del(url + '/1/monitor/' + monitorHashID + '?accountHashID=mrwooj', function (error, response, body) {
+      if (error)
+      console.log(error)
+      body = JSON.parse(body)
+      if (body.result)
+        done()
+      else
+        done(new Error('Result is Null!'))
+    })
+  })
 })
