@@ -263,7 +263,7 @@ describe('Server: Web', function () {
 	})
 
 	it('Delete test inserted log', function(done) {
-		request.del(url + '/1/monitor/' + monitorHashIDTemp[2] + '?accountHashID=sherVn', function (error, response, body) {
+		request.del(url + '/1/monitor/' + monitorHashIDTemp[2] + '?accountHashID=testID2', function (error, response, body) {
 			if (error)
 			console.log(error)
 			body = JSON.parse(body)
