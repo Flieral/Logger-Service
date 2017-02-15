@@ -1,26 +1,41 @@
 exports.default = {
-	routes: function(api) {
+	routes: function (api) {
 		return {
-			get:
-			[
+			get: [
 				/* URIs */
-				{path: '/:apiVersion/monitor'						, action: 'monitorList'},
-				{path: '/:apiVersion/monitor/:monitorHashID'		, action: 'monitorModel'},
+				{
+					path: '/:apiVersion/account/:accountHashId/monitor',
+					action: 'monitorList'
+				},
+				{
+					path: '/:apiVersion/account/:accountHashId/monitor/:monitorHashID',
+					action: 'monitorModel'
+				},
 
 				/* 	STATUS 	*/
-				{path: '/:apiVersion/Service/Status'					, action: 'Status'}
+				{
+					path: '/:apiVersion/Service/Status',
+					action: 'Status'
+				}
 			],
-		
-			post:
-			[
+
+			post: [
 				/* URIs */
-				{path: '/:apiVersion/monitor'		, action: 'monitorModelEntry'}
+				{
+					path: '/:apiVersion/account/:accountHashId/monitor',
+					action: 'monitorModelEntry'
+				}
 			],
-			delete:
-			[
+			delete: [
 				/* URIs */
-				{path: '/:apiVersion/monitor'						, action: 'monitorListDelete'},
-				{path: '/:apiVersion/monitor/:monitorHashID'		, action: 'monitorModelDelete'}
+				{
+					path: '/:apiVersion/account/:accountHashId/monitor',
+					action: 'monitorListDelete'
+				},
+				{
+					path: '/:apiVersion/account/:accountHashId/monitor/:monitorHashID',
+					action: 'monitorModelDelete'
+				}
 			]
 		}
 	}
