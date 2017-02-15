@@ -36,7 +36,9 @@
 		"missingKey" : "Key is Required",
 		"log" : {
 			"removed" : "200100100",
-			"entry" : "200100101"
+			"entry" : "200100101",
+			"exist": "200100102",
+			"notExist": "200100103"
 		},
 		"validator" : {
 			"successful" : "200210100",
