@@ -1,9 +1,8 @@
 var configuration = require('../config/configuration.json')
 var utility       = require('../public/utility')
 
-module.exports = function(redisClient, payload, callback) {
+module.exports = function(redisClient, accountHashID, payload, callback) {
   var tableName
-  var accountHashID
   var timestamp
   var multi = redisClient.multi()
   var monitorHashID = utility.generateUniqueHashID()
@@ -19,7 +18,6 @@ module.exports = function(redisClient, payload, callback) {
     redisClient.print
   )
 
-  accountHashID = payload['accountHashID']
   timestamp = payload['time']
 
   tableName = configuration.TableMSAccountModelMonitorModel + accountHashID
@@ -51,8 +49,10 @@ module.exports = function(redisClient, payload, callback) {
   multi.hset(modelAccessTableName, configuration.ConstantMMObjectInfo, payload.objectInfo, redisClient.print)
 
   multi.exec(function(err, replies) {
-    if (err)
-    callback(err, null)
+    if (err) {
+      callback(err, null)
+      return
+    }
     var res = {}
     res.monitorHashID = monitorHashID
     res.accountHashID = accountHashID

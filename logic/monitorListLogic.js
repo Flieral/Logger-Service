@@ -8,9 +8,12 @@ module.exports = function(redisClient, accountHashID, filter, callback) {
   if(filterKeys.length == 0) {
     var tableName = configuration.TableMSAccountModelMonitorModel + accountHashID
     redisClient.zrange(tableName, '0', '-1' , 'WITHSCORES', function(err , replies) {
-      if(err)
-      callback(err, null)
+      if (err) {
+        callback(err, null)
+        return
+      }
       callback(null, replies)
+      return
     })
   }
   else {
@@ -25,16 +28,23 @@ module.exports = function(redisClient, accountHashID, filter, callback) {
     args.push('AGGREGATE')
     args.push('MAX')
     redisClient.zinterstore(args, function(err, replies) {
-      if (err)
-      callback(err, null)
-      redisClient.zrange(destinationTableName, '0', '-1' , 'WITHSCORES', function(err , replies) {
-        if(err)
+      if (err) {
         callback(err, null)
+        return
+      }
+      redisClient.zrange(destinationTableName, '0', '-1' , 'WITHSCORES', function(err , replies) {
+        if (err) {
+          callback(err, null)
+          return
+        }
         result = replies
         redisClient.zremrangebyrank(destinationTableName, '0', '-1', function(err, replies) {
-          if (err)
-          callback(err, null)
+          if (err) {
+            callback(err, null)
+            return
+          }
           callback(null, result)
+          return
         })
       })
     })

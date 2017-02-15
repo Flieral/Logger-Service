@@ -25,8 +25,10 @@ module.exports = function (redisClient, accountHashID, monitorHashID, callback) 
   multi.zrem(configuration.TableMSAccountModelMonitorModel + accountHashID, monitorHashID)
   multi.zrem(configuration.TableMAMonitorModel, monitorHashID)
   multi.exec(function (err, replies) {
-    if (err)
-    callback(err, null)
+    if (err) {
+      callback(err, null)
+      return
+    }
     callback(null, configuration.message.log.removed)
   })
 }
