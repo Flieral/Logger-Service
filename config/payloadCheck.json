@@ -1,12 +1,5 @@
 {
   "monitorModelEntry": {
-    "accountHashID": {
-      "required": true,
-      "type":"string",
-      "default": 0
-
-    },
-
     "statusCode":{
       "required": true,
       "type": "string",

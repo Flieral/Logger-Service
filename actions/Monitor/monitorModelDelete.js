@@ -1,4 +1,5 @@
 var monitorModelDeleteAction = require('../../logic/monitorModelDeleteLogic')
+var monitorChecker = require('../../logic/monitorChecker.js')
 
 var Input = {
   accountHashID: {

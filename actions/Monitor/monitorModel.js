@@ -1,5 +1,5 @@
-var monitorModelAction = require('../../logic/monitorModelLogic')
-var monitorChecker = require('../../logic/monitorChecker')
+var monitorModelAction = require('../../logic/monitorModelLogic.js')
+var monitorChecker = require('../../logic/monitorChecker.js')
 
 var Input = {
 	accountHashID: {
