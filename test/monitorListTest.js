@@ -8,10 +8,16 @@ let path = require('path')
 var api
 var url
 
-describe('Server: Web', function () {
+// Tests Included:
+//    Monitor Model Entry
+//    Monitor Model Get
+//    Monitor Model Delete
+// 		Monitor List  Get
+
+describe('Monitor List Test', function () {
 
 	before(function (done) {
-		url = 'http://localhost:8085/api'
+		url = 'http://localhost:8085/api/1'
 		done()
 	})
 
@@ -24,9 +30,9 @@ describe('Server: Web', function () {
 	var testResult = []
 
 	it('Create New Monitor Log in Specific Account (accountHashID)', function (done) {
-		var body = JSON.stringify({statusCode: 'Sample2', serviceCaller: 'Sample1', moduleCaller: 'Sample2', actionType:'Sample1', time:1234567890, logMessage:'this is success', objectInfo:'this object has not f ing info!!' })
+		var Body = JSON.stringify({statusCode: 'Sample2', serviceCaller: 'Sample1', moduleCaller: 'Sample2', actionType:'Sample1', time:1234567890, logMessage:'this is success', objectInfo:'this object has not f ing info!!' })
 		var accountHashID = 'testID1'
-		request.post(url + '/account/' + accountHashID + '/monitor', { 'body': JSON.stringify(Body), 'headers': { 'Content-type': 'application/json' } }, function (error, response, body) {
+		request.post(url + '/account/' + accountHashID + '/monitor', { 'body': Body, 'headers': { 'Content-type': 'application/json' } }, function (error, response, body) {
       if (error) {
         console.log(error)
         should.not.exist(error)
@@ -40,9 +46,9 @@ describe('Server: Web', function () {
   })
 
 	it('Create New Monitor Log in Specific Account (accountHashID)', function (done) {
-		var body = JSON.stringify({statusCode: 'Sample1', serviceCaller: 'Sample1', moduleCaller: 'Sample1', actionType:'Sample1', time:1234567890, logMessage:'this is success', objectInfo:'this object has not f ing info!!' })
+		var Body = JSON.stringify({statusCode: 'Sample1', serviceCaller: 'Sample1', moduleCaller: 'Sample1', actionType:'Sample1', time:1234567890, logMessage:'this is success', objectInfo:'this object has not f ing info!!' })
 		var accountHashID = 'testID1'
-		request.post(url + '/account/' + accountHashID + '/monitor', { 'body': JSON.stringify(Body), 'headers': { 'Content-type': 'application/json' } }, function (error, response, body) {
+		request.post(url + '/account/' + accountHashID + '/monitor', { 'body': Body, 'headers': { 'Content-type': 'application/json' } }, function (error, response, body) {
       if (error) {
         console.log(error)
         should.not.exist(error)
@@ -56,9 +62,9 @@ describe('Server: Web', function () {
 	})
 
 	it('Create New Monitor Log in Specific Account (accountHashID)', function (done) {
-		var body = JSON.stringify({statusCode: 'Sample2', serviceCaller: 'Sample1', moduleCaller: 'Sample1', actionType:'Sample1', time:1234567890, logMessage:'this is success', objectInfo:'this object has not f ing info!!' })
+		var Body = JSON.stringify({statusCode: 'Sample2', serviceCaller: 'Sample1', moduleCaller: 'Sample1', actionType:'Sample1', time:1234567890, logMessage:'this is success', objectInfo:'this object has not f ing info!!' })
 		var accountHashID = 'testID2'
-		request.post(url + '/account/' + accountHashID + '/monitor', { 'body': JSON.stringify(Body), 'headers': { 'Content-type': 'application/json' } }, function (error, response, body) {
+		request.post(url + '/account/' + accountHashID + '/monitor', { 'body': Body, 'headers': { 'Content-type': 'application/json' } }, function (error, response, body) {
       if (error) {
         console.log(error)
         should.not.exist(error)
@@ -72,9 +78,9 @@ describe('Server: Web', function () {
 	})
 
 	it('Create New Monitor Log in Specific Account (accountHashID)', function (done) {
-		var body = JSON.stringify({statusCode: 'Sample2', serviceCaller: 'Sample1', moduleCaller: 'Sample1', actionType:'Sample1', time:1234567890, logMessage:'this is success', objectInfo:'this object has not f ing info!!' })
+		var Body = JSON.stringify({statusCode: 'Sample2', serviceCaller: 'Sample1', moduleCaller: 'Sample1', actionType:'Sample1', time:1234567890, logMessage:'this is success', objectInfo:'this object has not f ing info!!' })
 		var accountHashID = 'testID1'
-		request.post(url + '/account/' + accountHashID + '/monitor', { 'body': JSON.stringify(Body), 'headers': { 'Content-type': 'application/json' } }, function (error, response, body) {
+		request.post(url + '/account/' + accountHashID + '/monitor', { 'body': Body, 'headers': { 'Content-type': 'application/json' } }, function (error, response, body) {
       if (error) {
         console.log(error)
         should.not.exist(error)
@@ -88,9 +94,9 @@ describe('Server: Web', function () {
 	})
 
 	it('Create New Monitor Log in Specific Account (accountHashID)', function (done) {
-		var body = JSON.stringify({statusCode: 'Sample2', serviceCaller: 'Sample2', moduleCaller: 'Sample1', actionType:'Sample2', time:1234567890, logMessage:'this is success', objectInfo:'this object has not f ing info!!' })
+		var Body = JSON.stringify({statusCode: 'Sample2', serviceCaller: 'Sample2', moduleCaller: 'Sample1', actionType:'Sample2', time:1234567890, logMessage:'this is success', objectInfo:'this object has not f ing info!!' })
 		var accountHashID = 'testID1'
-		request.post(url + '/account/' + accountHashID + '/monitor', { 'body': JSON.stringify(Body), 'headers': { 'Content-type': 'application/json' } }, function (error, response, body) {
+		request.post(url + '/account/' + accountHashID + '/monitor', { 'body': Body, 'headers': { 'Content-type': 'application/json' } }, function (error, response, body) {
       if (error) {
         console.log(error)
         should.not.exist(error)
@@ -103,10 +109,11 @@ describe('Server: Web', function () {
     })
 	})
 
-	it('Get Specific Monitor (monitorHashID) Log from Specific Account (accountHashID)', function (done) {
+	it('Get Monitor List Log from Specific Account (accountHashID) with Filter', function (done) {
 		var accountHashID = 'testID1'
     request.get(url + '/account/' + accountHashID + '/monitor' + '?statusCode=Sample2&moduleCaller=Sample1&actionType=Sample1', function (error, response, body) {
-      if (error){
+      expectedResult.push(monitorHashIDTemp[3])
+			if (error) {
         console.log(error)
         should.not.exist(error)
       }
@@ -123,7 +130,7 @@ describe('Server: Web', function () {
     })
   })
 
-	it('Get Specific Monitor (monitorHashID) Log from Specific Account (accountHashID)', function (done) {
+	it('Get Monitor List Log from Specific Account (accountHashID) with Filter', function (done) {
 		var accountHashID = 'testID1'
     request.get(url + '/account/' + accountHashID + '/monitor' + '?statusCode=Sample2&moduleCaller=Sample1', function (error, response, body) {
 			expectedResult = []
@@ -148,7 +155,7 @@ describe('Server: Web', function () {
     })
   })
 
-	it('Get Specific Monitor (monitorHashID) Log from Specific Account (accountHashID)', function (done) {
+	it('Get Monitor List Log from Specific Account (accountHashID) with Filter', function (done) {
 		var accountHashID = 'testID1'
     request.get(url + '/account/' + accountHashID + '/monitor' + '?moduleCaller=Sample1', function (error, response, body) {
 			expectedResult = []
@@ -175,7 +182,7 @@ describe('Server: Web', function () {
     })
   })
 
-	it('Get Specific Monitor (monitorHashID) Log from Specific Account (accountHashID)', function (done) {
+	it('Get All Monitor List Log from Specific Account (accountHashID)', function (done) {
 		var accountHashID = 'testID1'
     request.get(url + '/account/' + accountHashID + '/monitor', function (error, response, body) {
 			expectedResult = []
@@ -217,7 +224,7 @@ describe('Server: Web', function () {
     })
   })
 
-	it('Get Specific Monitor (monitorHashID) Log from Specific Account (accountHashID)', function (done) {
+	it('Get Monitor List Log from Specific Account (accountHashID) with Filter', function (done) {
 		var accountHashID = 'testID1'
     request.get(url + '/account/' + accountHashID + '/monitor?moduleCaller=Sample1', function (error, response, body) {
 			expectedResult = []
@@ -265,7 +272,7 @@ describe('Server: Web', function () {
         should.not.exist(error)
       }
       body = JSON.parse(body)
-      if ((response.statusCode >= 200 && response.statusCode < 300) && body.result)
+      if (!body.result)
         done()
       else
         done(new Error('Result is Null!'))
@@ -317,7 +324,7 @@ describe('Server: Web', function () {
     })
   })
 
-	it('Get Specific Monitor (monitorHashID) Log from Specific Account (accountHashID)', function (done) {
+	it('Get Monitor List Log from Specific Account (accountHashID) with Filter', function (done) {
 		var accountHashID = 'testID1'
     request.get(url + '/account/' + accountHashID + '/monitor?statusCode=Sample2', function (error, response, body) {
 			if (error) {

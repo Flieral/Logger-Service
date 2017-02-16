@@ -11,7 +11,7 @@ var url
 //    Monitor Model Entry
 //    Monitor Model Delete
 
-describe('Server: Web', function () {
+describe('Monitor Model Delete Test', function () {
 
   before(function (done) {
     url = 'http://localhost:8085/api/1'
