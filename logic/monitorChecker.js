@@ -7,7 +7,7 @@ module.exports = function (redisClient, accountHashID, monitorHashID, callback) 
       callback(err, null)
       return
     }
-    if (replies != null && replies != undefined) {
+    if (replies == null || replies == undefined) {
       callback(new Error(configuration.message.log.notExist), null)
       return
     }
